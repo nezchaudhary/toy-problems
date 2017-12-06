@@ -24,7 +24,6 @@
  *
  */
 var balancedParens = function (input) {
-
   const brackets = {
     ')': '(',
     '}': '{',

@@ -34,7 +34,6 @@ const allAnagrams = function (string) {
       } else {
         continue;
       }
-
       if (word.length !== string.length) {
         loop(string, word, used, result);
       } else if (word.length === string.length) {
@@ -48,7 +47,6 @@ const allAnagrams = function (string) {
       // word.pop();
     }
   }
-
   loop(string, '', {}, result);
   return Array.from(new Set(result));
 };

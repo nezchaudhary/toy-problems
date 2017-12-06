@@ -38,7 +38,6 @@
  *
  */
 
-
 const asyncMap = function (tasks, callback) {
   //i : array of functions called tasks that are asynchronous and
   //a callback to be invoked on the result after all functions have executed synchronously

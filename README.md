@@ -1,2 +1,2 @@
-# leetcode
-Toy Problems to understand algorithms
+# Algorithmic Problems
+  Toy problems to expand the mind on algorithms & data structures

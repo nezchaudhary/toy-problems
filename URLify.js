@@ -1,7 +1,7 @@
 const URLify = (value, trueLength) => {
   let count = 0;
   for (let i = 0; i < trueLength; i++) {
-    value[i] === ' ' ? count ++ : null;
+    value[i] === ' ' ? count++ : null;
   }
   let index = trueLength + (count * 2);
   if (trueLength < value.length) {

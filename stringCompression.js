@@ -1,5 +1,5 @@
 const stringCompression = (word) => {
-  // this version creates the string and checks length;
+  // this version creates the string, checks length and then returns smaller one
   // we can first check the length of the final value, if smaller, create string
   let result = word[0];
   let count = 1;

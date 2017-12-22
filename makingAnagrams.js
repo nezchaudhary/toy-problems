@@ -6,7 +6,7 @@ Any characters can be deleted from either of the strings.
 
 const deleteCharacters = (a, b) => {
   const chars = {};
-  for (let char1g of a) {
+  for (let char1 of a) {
     chars[char1] ? chars[char1]++ : chars[char1] = 1;
   }
 

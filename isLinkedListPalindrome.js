@@ -2,10 +2,8 @@ function isListPalindrome(l) {
 
   // create stack approach
   
-  // slow pointer
+  // slow  & fast pointer
   let slow = l;
-  
-  // fast pointer
   let fast = l;
 
   //create a stack

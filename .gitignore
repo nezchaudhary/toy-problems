@@ -1,2 +1,2 @@
-# ignore debugger files for vscode
-.givscode/
+# Ignore debugger files for vscode
+.vscode/

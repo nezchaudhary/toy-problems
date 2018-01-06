@@ -1,3 +1,3 @@
 # Algorithm & Data Structure Problems
- - Toy problems to expand the mind on algorithms & data structures
+ - Algorithms & data structures to expand the mind
  - Written in Javascript

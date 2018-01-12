@@ -45,7 +45,7 @@ var testingTransform = function (array) {
   return transform;
 };
 
-let default = (a, b) => {
+const defaultComparator = (a, b) => {
   if (typeof a === 'object' && typeof b === 'object' 
     && a.value !== undefined && b.value !== undefined) {
     return a.value - b.value
@@ -53,7 +53,7 @@ let default = (a, b) => {
   return a - b;
 };
 
-var insertionSort = function (array, comparator = default, index = 0) {
+var insertionSort = function (array, comparator = defaultComparator, index = 0) {
   //maybe keep track of the indexes with the value
   //as you check values you will replace values based on where they belong
   //if the value is the same, they stay where they are

@@ -45,23 +45,23 @@ var testingTransform = function (array) {
   return transform;
 };
 
-var insertionSort = function (array, comparator, i = 0, values = {}) {
-  // Your code goes here. Feel free to add helper functions if needed.
+let default = (a, b) => {
+  if (typeof a === 'object' && typeof b === 'object' 
+    && a.value !== undefined && b.value !== undefined) {
+    return a.value - b.value
+  }
+  return a - b;
+};
+
+var insertionSort = function (array, comparator = default, index = 0) {
   //maybe keep track of the indexes with the value
   //as you check values you will replace values based on where they belong
   //if the value is the same, they stay where they are
-  comparator = comparator || ((value) => value);
-  for (i; i < array.length; i++) {
-    if (values[i - 1] && array[i].value < values[i - 1].value) {
-      array[i - 1] = array[i];
-      array[i] = values[i - 1];
-      values[i - 1] = array[i - 1];
-      values[i] = array[i];
-      insertionSort(array, comparator, i - 1, values);
-
-    } else {
-      values[i] = array[i];
-    }
+  for (index; index < array.length - 1; index++) {
+    if (comparator(array[index], array[index + 1]) > 0) {
+      [array[index], array[index + 1]] = [array[index + 1], array[index]];
+      insertionSort(array, comparator, index - 1);
+    } 
   }
   return array;
 };
@@ -78,3 +78,19 @@ var insertionSort = function (array, comparator, i = 0, values = {}) {
     console.log(insertionSort(b));
     var c = testingTransform([1, 2, 3]);
     console.log(insertionSort(c));
+
+
+  //     comparator = comparator || ((value) => value);
+  // for (i; i < array.length; i++) {
+  //   if (values[i - 1] && array[i].value < values[i - 1].value) {
+  //     array[i - 1] = array[i];
+  //     array[i] = values[i - 1];
+  //     values[i - 1] = array[i - 1];
+  //     values[i] = array[i];
+  //     insertionSort(array, comparator, i - 1, values);
+
+  //   } else {
+  //     values[i] = array[i];
+  //   }
+  // }
+  // return array;

@@ -48,9 +48,9 @@ var testingTransform = function (array) {
 const defaultComparator = (a, b) => {
   if (typeof a === 'object' && typeof b === 'object' 
     && a.value !== undefined && b.value !== undefined) {
-    return a.value - b.value
+    return a.value > b.value
   }
-  return a - b;
+  return a > b;
 };
 
 var insertionSort = function (array, comparator = defaultComparator, index = 0) {
@@ -66,31 +66,15 @@ var insertionSort = function (array, comparator = defaultComparator, index = 0) 
   return array;
 };
 
-
-
-    console.log(insertionSort([{ value: 2 }, { value: 1 }, { value: 3 }]));
-    console.log(insertionSort([{ value: 4 }, { value: 1 }, { value: 3 }, { value: 2 }]));
-    let a = testingTransform([4, 1, 3, 3]);
-    console.log('testingTransform', a);
-    console.log(insertionSort(a));
-    console.log(insertionSort(testingTransform([1, 100, 2, 43, 21])));
-    var b = testingTransform([5, 4, 3]);
-    console.log(insertionSort(b));
-    var c = testingTransform([1, 2, 3]);
-    console.log(insertionSort(c));
-
-
-  //     comparator = comparator || ((value) => value);
-  // for (i; i < array.length; i++) {
-  //   if (values[i - 1] && array[i].value < values[i - 1].value) {
-  //     array[i - 1] = array[i];
-  //     array[i] = values[i - 1];
-  //     values[i - 1] = array[i - 1];
-  //     values[i] = array[i];
-  //     insertionSort(array, comparator, i - 1, values);
-
-  //   } else {
-  //     values[i] = array[i];
-  //   }
-  // }
-  // return array;
+console.log(insertionSort([{ value: 2 }, { value: 1 }, { value: 3 }]));
+console.log(insertionSort([{ value: 4 }, { value: 1 }, { value: 3 }, { value: 2 }]));
+let a = testingTransform([4, 1, 3, 3]);
+console.log('testingTransform', a);
+console.log(insertionSort(a));
+console.log(insertionSort(testingTransform([1, 100, 2, 43, 21])));
+var b = testingTransform([5, 4, 3]);
+console.log(insertionSort(b));
+var c = testingTransform([1, 2, 3]);
+console.log(insertionSort(c));
+var e = testingTransform([0, 1, 'a', ';', [], {}, undefined, null]);
+console.log(insertionSort(e));

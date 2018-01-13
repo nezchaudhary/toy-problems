@@ -24,20 +24,68 @@ makeChange(1) === 1
 makeChange(2) === 2
 */
 
+// const makeChange = function (total) {
+//   // dynaamic programming problem
+//   //i : a total that we ar
+//   const possibilities = [1, 2, 5, 10, 20, 50, 100, 200];
+//   const answers = new Array(possibilities.length + 1);
+
+//   for (let i = 0; i < answers.length; i++) {
+//     answers[i] = new Array(total + 1).fill(0);
+//   }
+
+//   for (let p = 0; p < possibilities.length; p++) {
+//     let value = possibilities[p];
+//     for (let t = 1; t <= total; t++) {
+//       let count = 0;
+//       let remainder = t % value;
+//       if (!remainder) {
+//         count++;
+//       }
+
+//       if (remainder) {
+//         answers[remainder][remainder] > 0 ? count++ : null;
+//       }
+
+//       let coins = Math.floor(t / value) - 1;
+//         while (coins > 0) {
+
+//         }
+//       }
+      
+//       remain
+//     }
+//   }
+
+
+
+
+// };
+
+// brute force naive solution
 const makeChange = function (total) {
-  // dyanamic programming problem
-  //i : a total that we ar
-  const possibilities = [1, 2, 5, 10, 20, 50, 100, 200];
-
-
+  const coins = [1, 2, 5, 10, 20, 50, 100, 200];
+  let count = 0;
+  const loop = (coin, value) => {
+    if (coin === 0) {
+      if (value % coins[coin] === 0) {
+        count++;
+      }
+      return;
+    }
+    while (value >= 0) {
+      loop (coin - 1, value);
+        value -= coins[coin];
+    }
+  }
+  loop(coins.length - 1, total);
+  return count;
 };
+
 console.log(makeChange(1)); // 1
 console.log(makeChange(2)); // 2
 console.log(makeChange(3)); // 2
-console.log(makeChange(4)); // 4
-console.log(makeChange(10)); // 2
-console.log(makeChange(200)); // 2
-// console.log(makeChange(1) === 1) // true
-// console.log(makeChange(2) === 2) // true
-// 
+console.log(makeChange(4)); // 3
+console.log(makeChange(10)); // 11
+console.log(makeChange(200)); // 73682
 

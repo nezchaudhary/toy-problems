@@ -1,66 +1,64 @@
-var knapsack = function (weight, items) {
-  // loop over array and if we can add it to our list, 
-  // loop again to find more values we can add
+/* Given a Knapsack of a maximum capacity of W and N items each with its own value 
+and weight, throw in items inside the Knapsack such that the final contents has the maximum 
+value
+*/
 
-  // for (let i = 0; i < items.length; i++) {
-  //   let max = weigth;
-  //   let solution = items[i].v;
-  //   for (let j = 0; j < items.length; j++) {
-  //     if (j !== i) {
-  //     if (max - items[j] > 0) {
-  //       solution += items[j].v;
-  //     } else {
-  //       solutions.push(solution);
-  //       break;
-  //     }
-  //     }
-  //   }
-  // }
+// Dynamic Programming Solution
+var knapsack = (weight, items) => {
+  let maxValue = 0;
+  let remainingWeight = weight;
+  let valueTable = new Array(items.length + 1);
 
-  // the above will not work because it goes in order
-  // we need a solution that will work adding every combination
+  for (let i = 0; i < valueTable.length; i++) {
+    valueTable[i] = new Array(weight + 1).fill(0);
+  }
 
-
-  // check if the previous value for the remaining weight can be added
-  // solutions[i][(j+1) - items[i].w].v > solution[ 
-
-  //check if the previous solution for this weight is better
-  // solution[i-1][j].v > current one
-
-  //get current value
-
-  let solutions = new Array(items.length).fill([new Array(weight).fill({ w: 0, v: 0 })]);
   for (let i = 0; i < items.length; i++) {
-    //need to create a nested value;
-    for (let j = 0; j < items.length; j++) {
-      // check if value can be added at this weight
-      // if yes check if this value is higher than the item
-      // else check if there is a value associated with that weight for this item
-      // 
-      // if (solutions[i-1][j].v > 
-      if (items[i].w <= (j + 1) /* max weight */) {
-        let leftOverWeight = ((j + 1) - items[i].w);
-        if (leftOverWeight > 0) {
-          if (solutions[i][leftOverWeight - 1].v + items[i].v > solutions[i - 1][j].v) {
-            solutions[i][j].w = solutions[i][leftOverWeight].w + items[i].w;
-            solutions[i][j].v = solutions[i][leftOverWeight].v + items[i].v;
-          } else {
-            solutions[i][j].w = items[i].w;
-            solutions[i][j].v = items[i].v;
-          }
-        } else {
-          solutions[i][j].w = items[i].w;
-          solutions[i][j].v = items[i].v;
-        }
+    let item = items[i];
+    for (let w = 1; w <= weight; w++) {
+      let prevRowValue = valueTable[i][w];
+      if (item.w <= w) {
+        valueTable[i + 1][w] = Math.max(valueTable[i][w - item.w] + item.v, prevRowValue)
+      } else {
+        valueTable[i + 1][w] = prevRowValue;
       }
     }
   }
-  return solutions;
+  return valueTable[items.length][weight];
 }
 
+//Exponential time solution
+// var knapsack = function (weight, items) {
+//   let maxValue = 0;
+//   let start = 0;
+//   let remainingWeight = weight;
 
+//   const loop = (i, value = 0) => {
+//     if (maxValue < value) {
+//       maxValue = value;
+//     }
+//     for (i; i < items.length; i++) {
+//       let item = items[i];
+//       if (item.w <= remainingWeight) {
+//         value += item.v;
+//         remainingWeight -= item.w;
+//         loop(i + 1, value);
 
+//         value -= item.v;
+//         remainingWeight += item.w;
+//       } else if (remainingWeight > 0) {
+//         continue;
+//       }
+//     }
+//   }
+//   loop(start);
+//   return maxValue;
+// };
 
+let items1 = [{ w: 3, v: 10 }, { w: 2, v: 6 }, { w: 4, v: 11 }]; //max weight 7
+let items2 = [{ w: 12, v: 4 }, { w: 2, v: 2 }, { w: 1, v: 1 }, { w: 1, v: 2 }, { w: 4, v: 10 }]; //// max weight 15
+let items3 = [{ w: 5, v: 10 }, { w: 4, v: 40 }, { w: 6, v: 30 }, { w: 3, v: 50 }]; // max weight 10
 
-let things = [{ w: 3, v: 10 }, { w: 2, v: 6 }, { w: 4, v: 11 }, { w: 2, v: 4 }, { w: 3, v: 5 }];
-console.log(knapsack(7, things)); // 21;
+console.log(knapsack(7, items1));
+console.log(knapsack(15, items2));
+console.log(knapsack(10, items3));

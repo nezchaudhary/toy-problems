@@ -39,11 +39,27 @@ Tree.prototype.isDescendant = function (child) {
   }
 };
 
-Tree.prototype.getClosestCommonAncestor = function (node1, node2) {
+Tree.prototype.getClosestCommonAncestor = function (node1, node2, closest = null) {
   //i: 2 nodes to find the most common ancestor for
   //o: the closest common link between the nodes
   //c: none
   //e: null if no ancestor
+
+  if (node1 === node2) {
+    return node1;
+  }
+  if (this.isDescendant(node1) && this.isDescendant(node2)) {
+    closest = this;
+  } else {
+    return closest;
+  }
+
+  if (this.children.length) {
+    for (let child of this.children) {
+      closest = child.getClosestCommonAncestor(node1, node2, closest);
+    }
+  }
+  return closest;
 };
 
 /**
@@ -60,7 +76,9 @@ Tree.prototype.getClosestCommonAncestor = function (node1, node2) {
 
 
 //example usage:
+var greatGrandma = new Tree('greatGrandMa');
 var grandma = new Tree('grandma');
+greatGrandma.addChild(grandma);
 var mom = new Tree('mom');
 grandma.addChild(mom);
 var me = new Tree('me');
@@ -69,7 +87,8 @@ var momsSister = new Tree('momSister');
 grandma.addChild(momsSister);
 var cousin = new Tree('cousin');
 momsSister.addChild(cousin);
-console.log(grandma.getClosestCommonAncestor(me, cousin)); // grandma;
+
+console.log(greatGrandma.getClosestCommonAncestor(me, cousin)); // grandma;
 
 
 /**
@@ -86,6 +105,8 @@ Tree.prototype.getAncestorPath = function (node, result) {
     let isRelative = this.isDescendant(node);
     if (isRelative) {
       result.push(this);
+    } else {
+      return null;
     }
   }
   this.children.forEach(child => {

@@ -17,7 +17,7 @@ const hasPathSum = (tree, target, sum = 0) => {
   */
 
   //add the value of the current node as we go until we hit a leaf 
-  sum += tree.val;
+  sum += tree.value;
 
   //if the condition above does not meet, check the left side
   //of node if it exists
@@ -40,7 +40,7 @@ const hasPathSum = (tree, target, sum = 0) => {
 }
 
 function BST(value) {
-  this.val = value;
+  this.value = value;
   this.left = null;
   this.right = null;
 }

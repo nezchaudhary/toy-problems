@@ -24,8 +24,8 @@ makeChange(1) === 1
 makeChange(2) === 2
 */
 
-// const makeChange = function (total) {
-//   // dynaamic programming problem
+// dynamic programming solution
+const makeChange = function (total) {
 //   //i : a total that we ar
 //   const possibilities = [1, 2, 5, 10, 20, 50, 100, 200];
 //   const answers = new Array(possibilities.length + 1);
@@ -56,10 +56,6 @@ makeChange(2) === 2
 //       remain
 //     }
 //   }
-
-
-
-
 // };
 
 // brute force naive solution

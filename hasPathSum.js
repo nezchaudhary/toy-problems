@@ -88,3 +88,10 @@ console.log(hasPathSum(root1, 100)); // false
 let root2 = new BST(4);
 console.log(hasPathSum(root2, 4)) //true
 console.log(hasPathSum(root2, 5)) //false
+
+// simple and modular solution
+// const hasPathSum = function (node, targetSum) {
+//   if (!node) return false;
+//   if (!node.left && !node.right) return targetSum === node.val;
+//   return hasPathSum(node.left, targetSum - node.val) || hasPathSum(node.right, targetSum - node.val);
+// };

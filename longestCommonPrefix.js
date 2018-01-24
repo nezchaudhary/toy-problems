@@ -11,9 +11,7 @@ const longestCommonPrefix = (list) => {
   //e: no common prefix or empty array -> return empty string, invalid input
   
   //check for empty array
-  if (list.length === 0) {
-    return '';
-  }
+  if (list.length === 0) return '';
 
   // initialize constant variables
   let shortestLength = Number.POSITIVE_INFINITY;

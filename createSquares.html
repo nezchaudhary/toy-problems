@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    #main { border: 1px solid; width: 500px; height:500px; margin: auto }
+  </style>
+</head>
+<body>
+  <div id="main">
+
+  </div>
+  <script>
+    let alphabet = 65;
+    let count = 1;
+
+     // create random color
+    const generateRandomColor = () => {
+      const arg1 = Math.floor(Math.random() * 250) + 1;
+      const arg2 = Math.floor(Math.random() * 250) + 1;
+      const arg3 = Math.floor(Math.random() * 250) + 1;
+      return `(${arg1}, ${arg2}, ${arg3})`;
+    }
+
+    //create new square
+    const createNewSquare = (width, height) => {
+      const square = document.createElement('div');
+      square.id = `${String.fromCharCode(alphabet)}${count}`;
+      count++;
+      const style = `background-color:rgb${generateRandomColor()}; width:${(width / 2) - 2}px; height:${(height / 2) - 2}px; border:1px solid; float:left`;
+      square.addEventListener('click', multiply);
+      square.setAttribute('style', style);
+      return square;
+    }
+
+    // event listener to multiply
+    const multiply = (e) => {
+      const id = e.target.id;
+      console.log(e)
+      let element = document.getElementById(id);
+      const width = e.target.clientWidth;
+      const height = e.target.clientHeight;
+      let sqr1 = createNewSquare(width, height);
+      let sqr2 = createNewSquare(width, height);
+      let sqr3 = createNewSquare(width, height);
+      let sqr4 = createNewSquare(width, height);
+      element.appendChild(sqr1);
+      element.appendChild(sqr2);
+      element.appendChild(sqr3);
+      element.appendChild(sqr4);
+      count = 1;
+      alphabet++;
+      element.removeEventListener('click', multiply);
+    }
+
+    let square = document.getElementById('main');
+    square.addEventListener('click', multiply);
+    square.setAttribute('style', `background-color:rgb${generateRandomColor()};`);
+
+  </script>
+</body>
+</html>

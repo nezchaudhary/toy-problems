@@ -1,13 +1,16 @@
 const moveZerosToEnd = (integers) => {
   let index = 0;
+  let zeros = 0;
 
   for (let value of integers) {
     if (value !== 0) integers[index++] = value;
+    if (value === 0) zeros++;
   }
 
-  while (index < integers.length) {
-    integers[index++] = 0
-  }
+  while (index < integers.length && zeros) {
+    integers[index++] = 0;
+    zeros--;
+  };
 
   return integers;
 }

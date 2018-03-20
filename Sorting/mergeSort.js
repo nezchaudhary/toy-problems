@@ -137,27 +137,20 @@ var mergeSort = function (array) {
   }
 };
 
+const mergeSortBottomUp = (array) => {
 
-// iterative approach
-// var mergeSort = function(array) {
-//   // array.forEach((value, i) => array[i] = [value]);
-//   // console.log(array);
-//   while (array.length > 1) {
-//     let index = 0;
-//     for (let i = 0; i < array.length; i+=2) {
-//       if (array[i+1]) {
-//        array[index] = swap(array[i], array[i+1]);
-//       } else {
-//         array[index] = array[i];
-//       }
-//       array[index + 1] = undefined;
-//       index++;
-//     }
-//     index = 0;
-//     // array.length = Math.ceil(array.length/2);
-//   }
- 
-//   return array[0];
-// }
+  let toSort = array.map((value) => [value]);
+  for (let i = 1; i < toSort.length; i += 2) {
+    // skip 2 elements at a time
+    let k = 0;
+    for (let j = 0; j < toSort.length; j += 1) {
+       toSort[j] = swap(toSort[k], toSort[k + 1]);
+       k += 2;
+    }
+  }
+  return toSort[0];
+}
 
+
+console.log(mergeSort([6.4, 3.5, 7.5, 2.5, 8.9, 4.2, 9.2, 1.1]));
 console.log(mergeSort([4, 7, 4, 3, 9, 1, 2]));

@@ -59,7 +59,7 @@ const addTwoNumbers = (list1, list2) => {
     }
 
     //check for carry over again
-    carryOver = sum >= 10 ? true : false;
+    carryOver = sum >= 10;
 
     node = carryOver ? createObj(sum - 10) : createObj(sum);
     sum = 0;

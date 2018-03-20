@@ -51,10 +51,8 @@ const characterFrequency = function (string) {
   for (let char in characterCount) {
     allCount.push([char, characterCount[char]]);
   }
-  console.log('allcount before sorting', allCount);
   allCount = allCount.sort((a, b) => b[1] - a[1]);
   console.log('allcount after sorting 1', allCount);
-  
   return allCount.sort((a, b) => a[0] > b[0] && a[1] <= b[1]);
 };
 

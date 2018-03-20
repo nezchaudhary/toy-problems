@@ -12,23 +12,12 @@ BST.prototype.insert = function (value) {
   return this;
 }
 
-const isBinarySearchTree = (tree) => {
-
-  // if value is null
-  if (tree.left === null && tree.right === null) {
-    return true;
-  }
-
-  if (tree.left) {
-    if (!(tree.left.value < tree.value)) return false;
-    if (!isBinarySearchTree(tree.left)) return false;
-  }
-
-  if (tree.right) {
-    if (!(tree.right.value > tree.value)) return false;
-    if (!isBinarySearchTree(tree.right)) return false;
-  }
-  return true;
+const isBinarySearchTree = (tree, min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY) => {
+  // update the max for the left tree
+  //update the max for the right tree
+  if (tree === null) return true;
+  if (tree.val <= min || tree.val >= max) return false;
+  return isValidBST(tree.left, min, tree.val) && isValidBST(tree.right, tree.val, max);
 }
 
 let tree1 = new BST(10);

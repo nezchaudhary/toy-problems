@@ -10,49 +10,45 @@ const longestCommonPrefix = (list) => {
   //c: none I can see
   //e: no common prefix or empty array -> return empty string, invalid input
   
-  //check for empty array
+  //edge cases
   if (list.length === 0) return '';
-
+  if (list.length === 1) return list[0];
+  
   // initialize constant variables
   let shortestLength = Number.POSITIVE_INFINITY;
-  let foundShortestLength = false;
-  let pointer = 0;
+
+  // find the length of the shortest word
+  for (let word = 0; word < list.length; word++) {
+    if (list[word].length < shortestLength) shortestLength = list[word].length;
+  }
+
+  let character = 0;
   let isMatch = true;
 
-  // nested loop iterating over list to check for match
-  while (pointer <= shortestLength && isMatch) {
-    for (let index = 0; index < list.length - 1; index++) {
 
-      //find the shortest length if not found
-      if (!foundShortestLength) {
-        if (list[index].length < shortestLength) {
-          shortestLength = list[index].length;
-        }
-      }
+  // nested loop iterating over list to check for match
+  while (character <= shortestLength && isMatch) {
+    for (let word = 0; word < list.length - 1; word++) {
 
       //check if the current value matches the next value
-      if (list[index][pointer] === list[index + 1][pointer]) {
-        continue;
-      } else {
+      if (list[word][character] !== list[word + 1][character]) {
         isMatch = false;
         break;
       }
     }
 
-    //once we found shortest length, we do not need to compute that again
-    foundShortestLength = true;
-
     //increment pointer
-    pointer++;
+    character++;
   }
 
   //return a copy of the prefix value from the first string in the array;
-  return list[0].slice(0, pointer - 1);
+  return list[0].slice(0, character - 1);
 }
 
 console.log(longestCommonPrefix(['aaabb', 'aabb', 'aacc'])) // 'aa';
 console.log(longestCommonPrefix(['aaa', 'aaabb', 'aaacc'])) // 'aaa';
 console.log(longestCommonPrefix(['a', 'b', 'c'])) // '';
+console.log(longestCommonPrefix(['c', 'c'])) // 'c';
 
 /*
   Transformation Steps 

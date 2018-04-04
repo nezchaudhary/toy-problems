@@ -12,7 +12,6 @@ Example 2:
 
 Input: haystack = "aaaaa", needle = "bba"
 Output: -1
-
 */
 
 /**
@@ -20,9 +19,7 @@ Output: -1
  * @param {string} needle
  * @return {number}
  */
-
-
-const subStr = function (haystack, needle) {
+var substring = function (haystack, needle) {
   if (needle.length === 0) return 0;
 
   for (let hayStackCharacter = 0; hayStackCharacter < haystack.length; hayStackCharacter++) {
@@ -44,4 +41,5 @@ const subStr = function (haystack, needle) {
     }
   }
   return -1;
+
 };

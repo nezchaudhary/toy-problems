@@ -1,7 +1,7 @@
 /*
 There is a rabbit that starts in the middle of an n x m matrix, n > 0, m > 0.
 Each element of a matrix is an integer representing points gained for being 
-on thespot. 
+on the spot. 
 
 If there are multiple possible "middles" then choose the one which has the 
 highest point value to start on. 
@@ -15,102 +15,98 @@ the rabbit will score for a given m x n matrix.
 
 */
 
-const getMatrixCenters = (matrix) => {
-  let totalRows = matrix.length;
-  let totalColumns = matrix[0].length;
-  let rowIsEven = totalRows % 2 === 0;
-  let columnIsEven = totalColumns % 2 === 0;
-  let rowCenter = Math.floor(totalRows / 2);
-  let columnCenter = Math.floor(totalColumns / 2);
-  const possibleCenters = [];
+const calculateMaximumPoints = (matrix) => {
+  // i: a matrix with values representing points
+  // o: number - max points scored
+  // c: none
+  // e: even/odd number of rows or columns, reach the end of the grid
+  // Assumption: can mutate matrix and values are always 0 and above
 
-  // row spots to add if even length
-  if (rowIsEven) {
-    possibleCenters.push([rowCenter, columnCenter], [rowCenter - 1, columnCenter]);
-  }
-  // column spots to add if even length
-  if (columnIsEven) {
-    possibleCenters.push([rowCenter, columnCenter - 1]);
-    if (!rowIsEven) {
+  // Function to calculate all the middle cells
+  const getMatrixCenters = (matrix) => {
+    let totalRows = matrix.length;
+    let totalColumns = matrix[0].length;
+    let rowIsEven = totalRows % 2 === 0;
+    let columnIsEven = totalColumns % 2 === 0;
+    let rowCenter = Math.floor(totalRows / 2);
+    let columnCenter = Math.floor(totalColumns / 2);
+    const possibleCenters = [];
+
+    // row spots to add if even length
+    if (rowIsEven) {
+      possibleCenters.push([rowCenter, columnCenter], [rowCenter - 1, columnCenter]);
+    }
+    // column spots to add if even length
+    if (columnIsEven) {
+      possibleCenters.push([rowCenter, columnCenter - 1]);
+      if (!rowIsEven) {
+        possibleCenters.push([rowCenter, columnCenter]);
+      }
+    }
+    // additional spots to add if both are even
+    if (rowIsEven && columnIsEven) {
+      possibleCenters.push([rowCenter - 1, columnCenter - 1]);
+    }
+    // if odd, both are odd, only one center
+    if (!rowIsEven && !columnIsEven) {
       possibleCenters.push([rowCenter, columnCenter]);
     }
-  }
-  // additional spots to add if both are even
-  if (rowIsEven && columnIsEven) {
-    possibleCenters.push([rowCenter - 1, columnCenter - 1]);
-  }
-  // if odd, both are odd, only one center
-  if (!rowIsEven && !columnIsEven) {
-    possibleCenters.push([rowCenter, columnCenter]);
-  }
-  return possibleCenters;
-};
-
-const getHighestMiddleSpot = (spots, matrix) => {
-  return spots.reduce((maxCenterPoints, spot) => {
-    let value = matrix[spot[0]][spot[1]];
-    if (value > maxCenterPoints.value 
-      || value === 0 && maxCenterPoints.spot[0] === -1) {
-      maxCenterPoints.spot = spot;
-      maxCenterPoints.value = value;
-    }
-    return maxCenterPoints;
-  }, { value: 0, spot: [-1, -1] });
-};
-
-const hungryRabbit = (matrix) => {
- // i: a matrix with values representing points
- // o: number - max points scored
- // c: none
- // e: even/odd number of rows or columns, reach the end of the grid
- // Assumption: Can mutate matrix
-
-  // Function to calculate all the middle spots
-  const allCenters = getMatrixCenters(matrix);
-  const highestCenter = getHighestMiddleSpot(allCenters, matrix);
-  if (highestCenter.spot[0] === -1) {
-    return 0;
-  }
-
-  // helper function to find current highest
-  const calculateGreater = (row, column, max) => {
-    let current = matrix[row][column];
-    if (current > max.points) {
-      max.points = current;
-      max.position = [row, column];
-    }
-    return max;
+    return possibleCenters;
   };
+
+  // Function to calculate middle point with highest points
+  const findMaximumValueCell = (cells) => {
+    return cells.reduce((maxValueCell, position) => {
+      let value = matrix[position[0]][position[1]];
+      if (value > maxValueCell.value) {
+        maxValueCell.position = position;
+        maxValueCell.value = value;
+      }
+      return maxValueCell;
+    }, { value: -1, position: [-1, -1] });
+  };
+
 
   // helper function to find highest among all four sides
-  const calculateNeighboringPoints = (row, column, ) => {
-    let max = { points: 0, position: [-1, -1] };
-    max = matrix[row - 1] ? calculateGreater(row - 1, column, max) : max;
-    max = matrix[row][column - 1] ? calculateGreater(row, column - 1, max) : max;
-    max = matrix[row + 1] ? calculateGreater(row + 1, column, max) : max;
-    max = matrix[row][column + 1] ? calculateGreater(row, column + 1, max) : max;
-    return max;
+  const getNeighboringCells = (row, column) => {
+    let cells = [];
+    matrix[row - 1] ? cells.push([row - 1, column]) : null;
+    matrix[row][column - 1] ? cells.push([row, column - 1]) : null;
+    matrix[row + 1] ? cells.push([row + 1, column]) : null;
+    matrix[row][column + 1] ? cells.push([row, column + 1]) : null;
+    return cells;
   };
 
-  let points = highestCenter.value;
-  matrix[highestCenter.spot[0]][highestCenter.spot[1]] = 0;
 
-  let row = highestCenter.spot[0];
-  let column = highestCenter.spot[1];
-
-  // recursive function call
-  const findMaxPoints = (row, column) => {
-    let nextMax = calculateNeighboringPoints(row, column);
-    if (nextMax.points !== 0) {
-      points += nextMax.points;
-      matrix[nextMax.position[0]][nextMax.position[1]] = 0;
-      return findMaxPoints(nextMax.position[0], nextMax.position[1]);
+  // recursive function call to find largest neighboring cells and accumulate points
+  const findMaximumPoints = (row, column) => {
+    const neighboringCells = getNeighboringCells(row, column);
+    const nextMaxCell = findMaximumValueCell(neighboringCells);
+    if (nextMaxCell.value > 0) {
+      points += nextMaxCell.value;
+      matrix[nextMaxCell.position[0]][nextMaxCell.position[1]] = 0;
+      return findMaximumPoints(nextMaxCell.position[0], nextMaxCell.position[1]);
     }
     return points;
   };
-  
-  return findMaxPoints(row, column);
-}
+
+  // Use all functions above to calculate maximum points
+
+  // find centers and max center value
+  const possibleCenters = getMatrixCenters(matrix);
+  const maxValueCell = findMaximumValueCell(possibleCenters);
+
+  // initialize points and set center cell to 0
+  let points = maxValueCell.value;
+  matrix[maxValueCell.position[0]][maxValueCell.position[1]] = 0;
+
+  // find max paths using middle row and column
+  let row = maxValueCell.position[0];
+  let column = maxValueCell.position[1];
+  return findMaximumPoints(row, column);
+};
+
+
 
 let x = [
   [5, 7, 8, 6, 3],
@@ -151,9 +147,9 @@ let c = [
 ];
 
 
-console.log(hungryRabbit(x)); // 30
-console.log(hungryRabbit(y)); // 36
-console.log(hungryRabbit(z)); // 0
-console.log(hungryRabbit(a)); // 5
-console.log(hungryRabbit(b)); // 9
-console.log(hungryRabbit(c)); // 24
+console.log(calculateMaximumPoints(x)); // 30
+console.log(calculateMaximumPoints(y)); // 36
+console.log(calculateMaximumPoints(z)); // 0
+console.log(calculateMaximumPoints(a)); // 5
+console.log(calculateMaximumPoints(b)); // 9
+console.log(calculateMaximumPoints(c)); // 24

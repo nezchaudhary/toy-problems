@@ -15,7 +15,7 @@ the rabbit will score for a given m x n matrix.
 
 */
 
-const calculateMaximumPoints = (matrix) => {
+const calculateMaximumCarrots = (matrix) => {
   // i: a matrix with values representing points
   // o: number - max points scored
   // c: none
@@ -34,7 +34,7 @@ const calculateMaximumPoints = (matrix) => {
 
     // row spots to add if even length
     if (rowIsEven) {
-      possibleCenters.push([rowCenter, columnCenter], [rowCenter - 1, columnCenter]);
+      possibleCenters.push(r);
     }
     // column spots to add if even length
     if (columnIsEven) {
@@ -43,7 +43,7 @@ const calculateMaximumPoints = (matrix) => {
         possibleCenters.push([rowCenter, columnCenter]);
       }
     }
-    // additional spots to add if both are even
+   
     if (rowIsEven && columnIsEven) {
       possibleCenters.push([rowCenter - 1, columnCenter - 1]);
     }
@@ -59,97 +59,116 @@ const calculateMaximumPoints = (matrix) => {
     return cells.reduce((maxValueCell, position) => {
       let value = matrix[position[0]][position[1]];
       if (value > maxValueCell.value) {
-        maxValueCell.position = position;
+        maxValueCell.row = position[0];
+        maxValueCell.col = position[1];
         maxValueCell.value = value;
       }
       return maxValueCell;
-    }, { value: -1, position: [-1, -1] });
+    }, { value: -1, row:-1, col: -1 });
   };
 
 
   // helper function to find highest among all four sides
-  const getNeighboringCells = (row, column) => {
-    let cells = [];
-    matrix[row - 1] ? cells.push([row - 1, column]) : null;
-    matrix[row][column - 1] ? cells.push([row, column - 1]) : null;
-    matrix[row + 1] ? cells.push([row + 1, column]) : null;
-    matrix[row][column + 1] ? cells.push([row, column + 1]) : null;
+  const getNeighboringCells = (row, col) => {
+    const cells = [];
+
+    // check if this cell exists in the matrix
+    matrix[row - 1] ? cells.push([row - 1, col]) : null;
+    matrix[row][col - 1] ? cells.push([row, col - 1]) : null;
+    matrix[row + 1] ? cells.push([row + 1, col]) : null;
+    matrix[row][col + 1] ? cells.push([row, col + 1]) : null;
     return cells;
   };
 
 
-  // recursive function call to find largest neighboring cells and accumulate points
-  const findMaximumPoints = (row, column) => {
-    const neighboringCells = getNeighboringCells(row, column);
-    const nextMaxCell = findMaximumValueCell(neighboringCells);
-    if (nextMaxCell.value > 0) {
-      points += nextMaxCell.value;
-      matrix[nextMaxCell.position[0]][nextMaxCell.position[1]] = 0;
-      return findMaximumPoints(nextMaxCell.position[0], nextMaxCell.position[1]);
+  // iterative function call to find maximum value neighboring cell and accumulate points
+  const collectPoints = () => {
+    // find centers and max center value
+    const possibleCenters = getMatrixCenters(matrix);
+    let maxValueCell = findMaximumValueCell(possibleCenters);
+
+    // initialize points and set centemr cell to 0
+    let points = maxValueCell.value;
+    matrix[maxValueCell.row][maxValueCell.col] = 0;
+
+    // find highest neighboring cell of current maximum value cell 
+    let neighboringCells = getNeighboringCells(maxValueCell.row, maxValueCell.col);
+    maxValueCell = findMaximumValueCell(neighboringCells);
+
+    // loop until we have valid values for max value cell i.e. greater than 0
+    while (maxValueCell.value > 0) {
+      points += maxValueCell.value;
+      matrix[maxValueCell.row][maxValueCell.col] = 0;
+      neighboringCells = getNeighboringCells(maxValueCell.row, maxValueCell.col);
+      maxValueCell = findMaximumValueCell(neighboringCells);
     }
     return points;
   };
 
-  // Use all functions above to calculate maximum points
-
-  // find centers and max center value
-  const possibleCenters = getMatrixCenters(matrix);
-  const maxValueCell = findMaximumValueCell(possibleCenters);
-
-  // initialize points and set center cell to 0
-  let points = maxValueCell.value;
-  matrix[maxValueCell.position[0]][maxValueCell.position[1]] = 0;
-
-  // find max paths using middle row and column
-  let row = maxValueCell.position[0];
-  let column = maxValueCell.position[1];
-  return findMaximumPoints(row, column);
+  return collectPoints();
 };
 
 
 
-let x = [
-  [5, 7, 8, 6, 3],
+let a = [
+  [5, 7, 8, 6, 3],mamat
   [0, 0, 7, 0, 4],
   [4, 6, 3, 4, 9],
   [3, 1, 0, 5, 8],
   [3, 2, 4, 5, 8]
 ];
 
-let y = [
+let b = [
   [0, 0, 5, 6],
   [6, 2, 3, 0],
   [6, 8, 0, 4],
   [1, 2, 7, 4]
 ];
 
-let z = [
+let c = [
   [0, 0, 0],
   [0, 0, 0],
   [0, 0, 0],
 ];
 
-let a = [
+let d = [
   [0, 0, 0],
   [0, 5, 0],
   [0, 0, 0]
 ]
 
-let b = [
+let e = [
   [0, 3, 0],
   [4, 0, 9],
   [0, 6, 0]
 ];
-let c = [
+let f = [
   [0, 3, 0, 5],
   [4, 0, 9, 7],
   [0, 6, 0, 8]
 ];
 
+let g = [
+  [1]
+];
 
-console.log(calculateMaximumPoints(x)); // 30
-console.log(calculateMaximumPoints(y)); // 36
-console.log(calculateMaximumPoints(z)); // 0
-console.log(calculateMaximumPoints(a)); // 5
-console.log(calculateMaximumPoints(b)); // 9
-console.log(calculateMaximumPoints(c)); // 24
+let h = [
+  [1, 2],
+  [0, 3]
+];
+
+let i = [
+  [1, 2, 3],
+  [6, 0, 8]
+]
+
+
+console.log(calculateMaximumCarrots(a)); // 30
+console.log(calculateMaximumCarrots(b)); // 36
+console.log(calculateMaximumCarrots(c)); // 0
+console.log(calculateMaximumCarrots(d)); // 5
+console.log(calculateMaximumCarrots(e)); // 9
+console.log(calculateMaximumCarrots(f)); // 24
+console.log(calculateMaximumCarrots(g)); // 1
+console.log(calculateMaximumCarrots(h)); // 6
+console.log(calculateMaximumCarrots(i)); // 13

@@ -115,7 +115,6 @@ const orderProjects = (projects) => {
 }
 
 
-
 // main function call to problem
 const findBuildOrder = (projects, dependencies) => {
   let graph = buildGraph(projects, dependencies);

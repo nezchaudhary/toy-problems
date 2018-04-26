@@ -5,7 +5,7 @@ class Node {
   }
 };
 
-class BinaryHeap {
+class MaxHeap {
   constructor () {
     this._heap = [];
   }
@@ -14,7 +14,7 @@ class BinaryHeap {
     this._heap.push(node);
     let currentIndex = this._heap[this._heap.length - 1];
     let parentIndex = Math.floor((currentIndex - 1) / 2);
-    while (this._heap[parentIndex] && this._heap[currentIndex] < this._heap[parentIndex]) {
+    while (this._heap[parentIndex] && this._heap[currentIndex] > this._heap[parentIndex]) {
       [this._heap[currentIndex], this._heap[parentIndex]] = [this._heap[parentIndex], this._heap[currentIndex]];
       let currentIndex = parentIndex;
       let parentIndex = Math.floor((currentIndex - 1) / 2);
@@ -29,16 +29,16 @@ class BinaryHeap {
     let currentIndex = 0;
     let leftChild = (currentIndex * 2) + 1;
     let rightChild = (currentIndex * 2) + 2;
-    let smallerChild;
+    let largerChild;
     if (leftChild && rightChild) {
-      smallerChild = leftChild.distance < rightChild.distance ? leftChild : rightChild;
+      largerChild = leftChild.distance > rightChild.distance ? leftChild : rightChild;
     } else {
-      smallerChild = leftChild ? leftChild : rightChild;
+      largerChild = leftChild ? leftChild : rightChild;
     }
 
-    while (this._heap[smallerChild] && this._heap[currentIndex].distance > this._heap[smallerChild].distance) {
-      [this._heap[currentIndex], this._heap[smallerChild]] = [this._heap[smallerChild], this._heap[currentIndex]];
-      let currentIndex = smallerChild;
+    while (this._heap[largerChild] && this._heap[currentIndex].distance < this._heap[largerChild].distance) {
+      [this._heap[currentIndex], this._heap[largerChild]] = [this._heap[largerChild], this._heap[currentIndex]];
+      let currentIndex = largerChild;
       leftChild = (currentIndex * 2) + 1;
       right = (currentIndex * 2) + 2;
     }
@@ -62,7 +62,7 @@ class BinaryHeap {
 const kClosestElements = (coordinates, point, k) => {
   let pointX = point[0];
   let pointY = point[1];
-  let heap = new BinaryHeap();
+  let heap = new MaxHeap();
 
   for (let i = 0; i <  coordinates.length; i++) {
     let coordinate = coordinates[i];

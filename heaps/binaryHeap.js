@@ -79,9 +79,115 @@ BinaryHeap.prototype.getRoot = function () {
 }
 
 BinaryHeap.prototype.insert = function (value) {
-  // TODO: Your code here
+  this._heap.push(value);
+  let currentValueIndex = this._heap.length - 1;
+  let parentIndex = Math.floor((currentValueIndex - 1) / 2);
+  while (this._heap[parentIndex] && this._heap[parentIndex] > this._heap[currentValueIndex]) {
+    [this._heap[currentValueIndex], this._heap[parentIndex]] = [this._heap[parentIndex], this._heap[currentValueIndex]];
+    currentValueIndex = parentIndex;
+    parentIndex = Math.floor((currentValueIndex - 1) / 2);
+  }
 }
 
 BinaryHeap.prototype.removeRoot = function () {
-  // TODO: Your code here
+  if (this._heap.length === 0) return null;
+  if (this._heap.length === 1) return this._heap.pop();
+  let output;
+  [this._heap[0], this._heap[this._heap.length - 1]] = [this._heap[this._heap.length - 1], this._heap[0]];
+  output = this._heap.pop();
+  let currentIndex = 0;
+  let child1Index = (currentIndex * 2) + 1;
+  let child2Index = (currentIndex * 2) + 2;
+  let smallerChild = this._heap[child1Index] < this._heap[child2Index] ? child1Index : child2Index;
+  while (this._heap[smallerChild] && this._heap[currentIndex] > this._heap[smallerChild]) {
+    [this._heap[currentIndex], this._heap[smallerChild]] = [this._heap[smallerChild], this._heap[currentIndex]];
+    currentIndex = smallerChild;
+    child1Index = (smallerChild * 2) + 1;
+    child2Index = (smallerChild * 2) + 2;
+    if (this._heap[child1Index] && this._heap[child2Index]) {
+      smallerChild = this._heap[child1Index] < this._heap[child2Index] ? child1Index : child2Index;
+    } else {
+      smallerChild = this._heap[child1Index] ? child1Index : child2Index;
+    }
+  }
+  return output;
 }
+
+BinaryHeap.prototype.heapsort = function() {
+  let values = this._heap.length;
+  let result = [];
+  
+  while (values > 0) {
+    [this._heap[0], this._heap[this._heap.length - 1]] = [this._heap[this._heap.length - 1], this._heap[0]];
+    result.push(this.removeRoot());
+    values--;
+  }
+  // result.push(this._heap.pop());
+  return result;
+}
+
+
+let heap = new BinaryHeap();
+heap.insert(5);
+heap.insert(8);
+heap.insert(6);
+heap.insert(14);
+heap.insert(4);
+heap.insert(3);
+heap.insert(2);
+heap.insert(10);
+heap.removeRoot();
+console.log(heap._heap);
+console.log('sorted', heap.heapsort());
+
+
+
+
+var array_length;
+/* to create MAX  array */
+function heap_root(input, i) {
+  var left = 2 * i + 1;
+  var right = 2 * i + 2;
+  var max = i;
+
+  if (left < array_length && input[left] > input[max]) {
+    max = left;
+  }
+
+  if (right < array_length && input[right] > input[max]) {
+    max = right;
+  }
+
+  if (max != i) {
+    swap(input, i, max);
+    heap_root(input, max);
+  }
+}
+
+function swap(input, index_A, index_B) {
+  var temp = input[index_A];
+
+  input[index_A] = input[index_B];
+  input[index_B] = temp;
+}
+
+function heapSort(input) {
+
+  array_length = input.length;
+
+  for (var i = Math.floor(array_length / 2); i >= 0; i -= 1) {
+    heap_root(input, i);
+  }
+
+  for (i = input.length - 1; i > 0; i--) {
+    swap(input, 0, i);
+    array_length--;
+
+
+    heap_root(input, 0);
+  }
+}
+
+var arr = [3, 0, 2, 5, -1, 4, 1];
+heapSort(arr);
+console.log(arr);

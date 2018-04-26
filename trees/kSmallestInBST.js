@@ -60,7 +60,6 @@ The kth smallest value in t.
 //   this.right = null;
 // }
 
-
 const kthSmallestInBST = (t, k) => {
 
   let result = null;

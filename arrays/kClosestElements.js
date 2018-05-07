@@ -58,27 +58,71 @@ class MaxHeap {
   }
  }
 
+const distance = (a, b) => {
+   return Math.sqrt(((b[0] - a[0]) ** 2) + ((b[1] - a[1]) ** 2));
+}
+
+const minHeapify = (coordinates, i, point) => {
+
+  let left = (2 * i) + 1;
+  let right = (2 * i) + 2;
+
+  let smallest;
+  
+  let leftDistance;
+  let rightDistance;
+
+  if (coordinates[left]) {
+    leftDistance = distance(point, coordinates[left]);
+  }
+  if (coordinates[right]) {
+    rightDistance = distance(point, coordinates[right]);
+  }
+   let currentIndexDistance = distance(point, coordinates[i]);
+   if (leftDistance < currentIndexDistance) {
+     smallest = left;
+   } else {
+     smallest = i;
+   }
+   if (rightDistance < currentIndexDistance) {
+     smallest = right;
+   } else  {
+     smallest = i;
+   }
+    if (smallest !== i) {
+      [coordinates[smallest], coordinates[i]] = [coordinates[i], coordinates[smallest]];
+      minHeapify(coordinates, smallest, point);
+    }
+
+ }
+
 
 const kClosestElements = (coordinates, point, k) => {
   let pointX = point[0];
   let pointY = point[1];
   let heap = new MaxHeap();
 
-  for (let i = 0; i <  coordinates.length; i++) {
-    let coordinate = coordinates[i];
-    let distance = Math.sqrt((coordinate[0] - pointX) ** 2 + (coordinate[1] - pointY) ** 2);
-    let node;
-      if (heap.size() < k) {
-        node = new Node({ coordinate, distance });
-        heap.insert({ coordinate, distance });
-      } else if (distance < heap.peek()) {
-        heap.remove();
-        node = new Node({ coordinate, distance });
-        heap.insert({ coordinate, distance });
-      }
+  // for (let i = 0; i <  coordinates.length; i++) {
+  //   let coordinate = coordinates[i];
+  //   let distance = Math.sqrt((coordinate[0] - pointX) ** 2 + (coordinate[1] - pointY) ** 2);
+  //   let node;
+  //     if (heap.size() < k) {
+  //       node = new Node({ coordinate, distance });
+  //       heap.insert({ coordinate, distance });
+  //     } else if (distance < heap.peek()) {
+  //       heap.remove();
+  //       node = new Node({ coordinate, distance });
+  //       heap.insert({ coordinate, distance });
+  //     }
+  // }
+  for (let i = 0; i < Math.floor(coordinates.length / 2); i++) {
+    minHeapify(coordinates, i, point);
   }
 
-  return heap.values().map(value => value.coordinate);
+  // return heap.values().map(value => value.coordinate);
+  return coordinates.slice(0, k);
+
+ // [[2, 3], [1, 4], [2, 5]]
 };
 
-console.log(kClosestElements([[2, 3], [1, 4], [2, 5], [6, 6], [4, 1], [3, 4]], [2, 4], 3));
+console.log(kClosestElements([[2, 3], [6, 6], [2, 5], [4, 1], [3, 4], [1, 4]], [2, 4], 3));

@@ -1,6 +1,6 @@
 // Begin your set-up revision for "hasPathSum()" here...
 const hasPathSum = (tree, target, sum = 0) => {
-  /* return a boolena if there a path that leads to the sum provided 
+  /* return a boolean if there a path that leads to the sum provided 
   as you go along
   
   this will be depth first search for a path from root to leaf

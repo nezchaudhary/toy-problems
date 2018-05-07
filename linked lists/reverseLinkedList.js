@@ -1,4 +1,4 @@
-const node = (value) => {
+const Node = (value) => {
   return {
     val: value,
     next: null,
@@ -8,7 +8,7 @@ const node = (value) => {
 // recursive
 const reverseLinkedList = (list, tail) => {
   
-  let head = node(list.val);
+  let head = Node(list.val);
   
   if (!tail) {
     tail = head;
@@ -23,6 +23,21 @@ const reverseLinkedList = (list, tail) => {
 
   return head;
 }
+
+// new list result;
+// const reverseList = (head) => {
+//   if (!head) return null;
+//   let reversedList = null;
+//   let node;
+
+//   while (head !== null) {
+//     node = new ListNode(head.val);
+//     node.next = reversedList;
+//     reversedList = node;
+//     head = head.next;
+//   }
+//   return reversedList;
+// };
 
 
 // iterative
@@ -43,6 +58,9 @@ const reverseLinkedList = (list, tail) => {
 
 //   return head;
 // }
+
+
+
 
 
 /*

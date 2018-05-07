@@ -60,26 +60,26 @@ The kth smallest value in t.
 //   this.right = null;
 // }
 
-const kthSmallestInBST = (t, k) => {
+const kthSmallestInBST = (tree, k) => {
 
   let result = null;
-  const findK = (t, k) => {
-    if (t == null)
+  const findK = (tree, k) => {
+    if (tree == null)
       return k;
-    k = findK(t.left, k);
+    k = findK(tree.left, k);
     k--;
     if (k === 0) {
-      result = t.value;
+      result = tree.value;
       return k;
     }
 
     if (result !== null) return k;
     
-    k = findK(t.right, k);
+    k = findK(tree.right, k);
     return k;
   };
 
-  findK(t, k);
+  findK(tree, k);
   return result;
   
 

@@ -9,7 +9,7 @@ class Project {
 
   addNeighbor(node) {
     if(!this.map[node]) {
-      this.children.add(node);
+      this.children.push(node);
       this.map[node.getName()] =  node;
       node.incrementDependencies();
     }

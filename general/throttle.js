@@ -1,3 +1,11 @@
+/*
+Throttling enforces a maximum number of times a function can be called over time. As in 
+"execute this function at most once every 100 milliseconds."
+
+*/
+
+
+
 const throttle = (func, limit) => {
   let inThrottle;
   return function (...args) {

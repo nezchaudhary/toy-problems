@@ -9,21 +9,6 @@ the answer is 'a'
 
 const nextGreatestLetter = (letters, target, low = 0, high = letters.length - 1, highest = '') => {
   
-  // Linear Solution
-  // let lowest = '';
-  // let highest = '';
-  // for (let char of letters) {
-  //   if (char > target && (char < highest || highest === '')) {
-  //     highest = char;
-  //   }
-
-  //   if (char < target && (char < lowest || lowest === '')) {
-  //     lowest = char;
-  //   }
-  // }
-  // return highest || lowest;
-
-
   // Binary Search
 
   if (low > high) {

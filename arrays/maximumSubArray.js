@@ -19,6 +19,10 @@ conquer approach, which is more subtle.
  * @param {number[]} nums
  * @return {number}
  */
+
+ 
+// Kadane's Algorithm
+
 var maxSubArray = function (nums) {
   if (nums === null || nums.length === 0) return 0;
   let maxUntilNow = nums[0];

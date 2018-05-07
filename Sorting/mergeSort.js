@@ -98,7 +98,7 @@
  */
 
  // recursive approach
-var swap = (arr1, arr2) => {
+const swap = (arr1, arr2) => {
   let result = [];
   while (arr1.length && arr2.length) {
     if (arr1[0] <= arr2[0]) {

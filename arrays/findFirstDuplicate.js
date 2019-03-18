@@ -9,10 +9,10 @@ Note: Your solution should be O(n) runtime and O(1) space.
 
 const firstDuplicate = (numbers) => {
   for (let i = 0; i < numbers.length; i++) {
-    let x = numbers[Math.abs(numbers[i])];
-    if (numbers[Math.abs(numbers[i])] >= 0) {
-      numbers[Math.abs(numbers[i])] = - numbers[Math.abs(numbers[i])];
-    } else if (numbers[Math.abs(numbers[i])]) {
+    let valueAtIndexOfCurrentValue = numbers[Math.abs(numbers[i])];
+    if (valueAtIndexOfCurrentValue >= 0) {
+      numbers[Math.abs(numbers[i])] = - valueAtIndexOfCurrentValue;
+    } else if (valueAtIndexOfCurrentValue) {
       return Math.abs(numbers[i]);
     }
   }

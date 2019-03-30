@@ -70,8 +70,8 @@ class DoublyLinkedList {
   }
 
   delete() {
-    this.prev.next = this.next;
-    this.next.prev = this.prev;
+    if (this.prev !== null) this.prev.next = this.next;
+    if (this.next !== null) this.next.prev = this.prev;
   }
 
   insert(node) {
@@ -82,7 +82,8 @@ class DoublyLinkedList {
 }
 
 class LRUCache {
-  constructor(capacity) {
+  constructor(props) {
+    const { capacity } = props;
     this.capacity = capacity;
     this.cache = {};
     this.head = new DoublyLinkedList(0, 0);
@@ -113,6 +114,8 @@ class LRUCache {
 
   resetPosition(node) {
     node.delete();
+    if (node === this.tail) this.tail = node.prev;
+    if (node === this.head) this.head = node.next;
     this.head.insert(node);
   }
 

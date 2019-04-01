@@ -2,7 +2,7 @@
  * @param {string} digits
  * @return {string[]}
  */
-var letterCombinations = function (digits, word = '', result = []) {
+var telephoneWords = function (digits, word = '', result = []) {
   const combinations = {
     2: 'abc',
     3: 'def',
@@ -27,4 +27,4 @@ var letterCombinations = function (digits, word = '', result = []) {
 
 };
 
-console.log(letterCombinations('22'));
+console.log(telephoneWords('22'));

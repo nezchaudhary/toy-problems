@@ -1,3 +1,9 @@
+
+/*
+Integer to words
+Given any integer, print an english phrase that describes the integer. e g. "One Thousand, Tow Hundred Thirty Four"
+*/
+
 const numberToWords = function (num) {
   const oneToTwenty = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty'];
   const tenToHundred = ['', 'Ten', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety', 'Hundred'];

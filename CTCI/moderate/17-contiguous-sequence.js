@@ -1,4 +1,7 @@
 /*
+maximum sub array
+maximumSubArray
+
 
 Given an integer array nums, find the contiguous subarray (containing at least one number) which 
 has the largest sum and return its sum.
@@ -15,24 +18,38 @@ conquer approach, which is more subtle.
 
 */
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
+/*
+* @param {number[]} nums
+* @return {number}
+*/
 
- 
 // Kadane's Algorithm
 
-var maxSubArray = function (nums) {
+var maxSubArray = nums => {
   if (nums === null || nums.length === 0) return 0;
   let maxUntilNow = nums[0];
   let maxEndingHere = nums[0];
   for (let i = 1; i < nums.length; i++) {
     let current = nums[i];
-    maxEndingHere = Math.max(maxEndingHere + nums[i], nums[i]);
+    maxEndingHere = Math.max(maxEndingHere + current, current);
     maxUntilNow = Math.max(maxUntilNow, maxEndingHere);
   }
   return maxUntilNow;
 };
 
+const getMaxSum = nums => {
+  let maxSum = 0;
+  let sum = 0;
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i]
+    if (maxSum < sum) {
+      maxSum = sum;
+    } else if ( sum < 0) {
+      sum = 0;
+    }
+  }
+  return maxSum;
+}
+
 console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
+console.log(getMaxSum([-2, 1, -3, 4, -1, 2, 1, -5, 4]));

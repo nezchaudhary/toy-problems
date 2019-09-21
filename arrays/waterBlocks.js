@@ -13,7 +13,7 @@ Input: [1,8,6,2,5,4,8,3,7]
 Output: 49
 */
 
-var waterBlocks = function(height) {
+const waterBlocks1 = function(height) {
   // constant to store max
   let waterBlocks = 0;
   // left wall
@@ -22,7 +22,7 @@ var waterBlocks = function(height) {
   let r = height.length - 1;
   // base case, before walls meet
   while(l < r)  {
-    waterBlocks = Math.max(waterBlocks, Math.min(height[l], height[r]) * (r - 1));
+    waterBlocks = Math.max(waterBlocks, Math.min(height[l], height[r]) * (r - l));
     if (height[l] < height[r]) {
         l++;
     } else {
@@ -31,3 +31,26 @@ var waterBlocks = function(height) {
   }
   return waterBlocks;
 };
+
+const waterBlocks2 = heights => {
+  let current = 0;
+  let result = 0;
+  let left = 0;
+  let right = heights.length - 1;
+  while (left < right) {
+    if (heights[left] < heights[right]) {
+      current = heights[left] * (right - left);
+      left++;
+    } else {
+      current = heights[right] * (right - left);
+      right--;
+    }
+    if (current > result) {
+      result = current;
+    }
+  }
+  return result;
+}
+
+console.log('water blocks 1 - ', waterBlocks1([1, 1]));
+console.log('water blocks 2 - ', waterBlocks2([1, 1]));

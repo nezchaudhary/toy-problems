@@ -16,7 +16,7 @@ You may assume that you have an infinite number of each kind of coin.
 
 */
 
-const coinChangeRecursive = (coins, amount, ) => {
+const coinChangeRecursive = (coins, amount) => {
 
   // Returns the count of ways we can  
 // sum S[0...m-1] coins to get sum n 
@@ -40,14 +40,45 @@ const coinChangeRecursive = (coins, amount, ) => {
     // including S[m-1] (ii) excluding S[m-1] 
     return coinChangeRecursive( S, m - 1, n ) + coinChangeRecursive( S, m, n-S[m-1] ); 
 }
+let startTime = Date.now();
+// console.log('start time recursive', startTime);
+// console.log('recursive', coinChangeRecursive([1, 2, 3], 5));
+// console.log('end time recursive', Date.now() - startTime);
 
-// Memoization
-const coinChangeTopDownDP = () => {
-  
+// // Recursively with Memoization (Top Down)
+// As you go, 
+
+const coinChangeTopDownDP = (coins, amount, visited = {}) => {
+  if (amount === 0) {
+    return 0;
+  }
+
+  const visitedValue = visited[amount];
+
+  if (visitedValue !== undefined) return visitedValue;
+  let min = Number.POSITIVE_INFINITY
+
+  for (let coin = 0; coin < coins.length; coin++) {
+    if (coins[coin] > amount) {
+      continue;
+    }
+
+    const value = coinChangeTopDownDP(coins, amount - coins[coin], visited)
+    if (value < min) {
+      min = value;
+    }
+  }
+
+  min = min === Number.POSITIVE_INFINITY ? min : min + 1;
+
+  visited[amount] = min;
+  return min;
+  //
 }
 
-
-
+startTime = Date.now();
+console.log('top down', coinChangeTopDownDP([1, 2, 3], 5));
+console.log('time taken top down', Date.now() - startTime);
 /*
 Sum: 11
 Coins: 1, 5, 6, 8
@@ -79,22 +110,10 @@ else
 */
 
 // BottomUp
-const coinChangeBottomUp = function(coins, amount) {
-  // const maxAmount = amount + 1;
-  // const coinCount = new Array(maxAmount);
-  // coinCount.fill(maxAmount);
-  // // [6, 6, 6, 6, 6, 6]
-  // coinCount[0] = 0
-  // // [0, 6, 6, 6, 6, 6]
-  // // sum.fill()
-  // for (let amount = 1; amount <= amount; amount++) {
-  //   for (let coin = 0; coin < coins.length; coin++) {
-  //     if (coins[coin] <= amount) {
-  //       coinCount[amount] = Math.min(coinCount[amount], coinCount[amount - coins[coin]] + 1);
-  //     }
-  //   }
-  // }
-  // return coinCount[total] > total ? -1 : coinCount[total];
+// This solution is using a two-dimensional array that is the size of amount + 1
+// time complexity O(A) + O(C) + O(A * C);
+// Space complexity O (C * (A + 1));
+const coinChangeBottomUp1 = function(coins, amount) {
   const maxAmount = amount + 1;
   const grid = new Array(coins.length);
 
@@ -109,7 +128,7 @@ const coinChangeBottomUp = function(coins, amount) {
   for (let coin = 0; coin < coins.length; coin++) {
     let coinValue = coins[coin];
     for (let sum = 0; sum <= amount; sum++) {
-      const aboveValue = coin === 0 ? Number.POSITIVE_INFINITY : grid[coin - 1][sum] || Number.POSITIVE_INFINITY;
+      const aboveValue = coin === 0 ? maxAmount : grid[coin - 1][sum] || maxAmount;
       if (coinValue <= sum) {
       
         const prevCoinCount = grid[coin][sum - coinValue];
@@ -117,7 +136,7 @@ const coinChangeBottomUp = function(coins, amount) {
         if (prevCoinCount !== undefined) {
           coinCountNow = prevCoinCount + 1;
         } else {
-          coinCountNow = Number.POSITIVE_INFINITY;
+          coinCountNow = maxAmount;
         }
 
           const minCoinsNow = Math.min(aboveValue, coinCountNow);
@@ -128,8 +147,40 @@ const coinChangeBottomUp = function(coins, amount) {
     }
   }
     const answer = grid[coins.length - 1][amount];
-  return answer === Number.POSITIVE_INFINITY || answer === undefined ? -1 : answer;
+  return answer === maxAmount || answer === undefined ? -1 : answer;
 };
+
+// BottomUp
+// This solution is using a one-dimensional array that is the size of amount + 1
+// time complexity O(A) + O(A * C);
+// Space complexity O(A + 1);
+
+const coinChangeBottomUp2 = function(coins, amount) {
+  const maxAmount = amount + 1;
+  const total = new Array(maxAmount).fill(maxAmount);
+  total[0] = 0;
+
+  for (let coin = 0; coin < coins.length; coin++) {
+    let coinValue = coins[coin];
+    for (let sum = 0; sum <= amount; sum++) {
+      const lastValue = total[sum];
+      if (coinValue <= sum) {
+        const lastSumForCoin = total[sum - coinValue];
+        const coinCountNow = lastSumForCoin + 1;
+        const minCoinsNow = Math.min(lastValue, coinCountNow);
+        total[sum] = minCoinsNow;
+      } 
+    }
+  }
+  const answer = total[amount];
+  return answer === maxAmount ? -1 : answer;
+};
+
+startTime = Date.now();
+console.log('bottom up', coinChangeBottomUp2([1, 2, 3], 5));
+console.log('time taken top down', Date.now() - startTime);
+
+// console.log(coinChangeBottomUp2([2], 3));
 
 
 //       A  B  C  D  E  F  G  H  I  J   K  L  (Sum)

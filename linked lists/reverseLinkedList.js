@@ -1,3 +1,16 @@
+/*
+  Reverse a singly linked list.
+
+  Example:
+
+  Input: 1->2->3->4->5->NULL
+  Output: 5->4->3->2->1->NULL
+  Follow up:
+
+  A linked list can be reversed either iteratively or recursively. Could you implement both?
+
+*/
+
 const Node = (value) => {
   return {
     val: value,
@@ -6,7 +19,7 @@ const Node = (value) => {
 }
 
 // recursive
-const reverseLinkedList = (list, tail) => {
+const reverseLinkedListRecursive = (list, tail) => {
   
   let head = Node(list.val);
   
@@ -22,6 +35,26 @@ const reverseLinkedList = (list, tail) => {
   }
 
   return head;
+}
+
+// Iterative
+const reverseLinkedListIterative = (list) => {
+
+  if (!list) return null;
+
+  let head = null;
+  
+  while (list !== null) {
+    const newNode = new ListNode(list.val);
+    if (!node) {
+      head = newNode;
+    } else {
+        newNode.next = head;
+        head = newNode;
+    }
+    list = list.next;
+  }
+  return node;
 }
 
 // new list result;

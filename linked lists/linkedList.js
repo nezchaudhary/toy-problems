@@ -18,56 +18,54 @@
 // list.removeHead(); //yields '5';
 // list.removeHead(); //yields 'null';
 
-
-var LinkedList = function () {
-  this.head = null;
-  this.tail = null;
-};
-
-//write methods here!
-
-LinkedList.prototype.addToTail = function (value) {
-  const node = this.makeNode(value);
-
-  if (this.head === null) {
-    this.tail = this.head = node;
-  } else {
-    this.tail.next = node;
-    this.tail = node;
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
   }
-};
 
-LinkedList.prototype.removeHead = function () {
-  const output = this.head;
-
-  if (this.head !== null) {
-    if (this.head.next) {
-      this.head = this.head.next;
+  addToTail() {
+    const node = this.newNode(value);
+    if (this.head === null) {
+      this.tail = this.head = node;
     } else {
-      this.head = this.tail = null;
+      this.tail.next = node;
+      this.tail = node;
     }
   }
-  return output ? output.value : null;
-};
 
-LinkedList.prototype.contains = function (value) {
-  let node = this.head;
-  while (node) {
-    if (node.value === value) {
-      return true;
-    } else {
-      node = node.next;
+  removeHead() {
+    const output = this.head;
+  
+    if (this.head !== null) {
+      if (this.head.next) {
+        this.head = this.head.next;
+      } else {
+        this.head = this.tail = null;
+      }
     }
+    return output ? output.value : null;
   }
-  return false;
-};
 
-LinkedList.prototype.makeNode = (value) => {
-  const node = {};
-  node.value = value;
-  node.next = null;
-  return node;
-};
+  contains(value) {
+    let node = this.head;
+    while (node) {
+      if (node.value === value) {
+        return true;
+      } else {
+        node = node.next;
+      }
+    }
+    return false;
+  }
+
+  newNode(value) {
+    const node = {};
+    node.value = value;
+    node.next = null;
+    return node;
+  };
+}
 
 var list = new LinkedList();
 console.log(list.tail);         //yields 'null'

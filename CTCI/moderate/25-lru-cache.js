@@ -56,82 +56,91 @@
 
 */
 
-class DoublyLinkedList {
+/**
+ * @param {number} capacity
+ */
+class DoublyLinkedNode {
   constructor(key, value) {
     this.key = key;
     this.value = value;
+    this.next = null
     this.prev = null;
-    this.next = null;
   }
-
-  linkToNext(nextNode) {
-    this.next = nextNode;
-    nextNode.prev = this;
-  }
-
-  delete() {
-    if (this.prev !== null) this.prev.next = this.next;
-    if (this.next !== null) this.next.prev = this.prev;
-  }
-
+  
   insert(node) {
-    node.next = this;
-    this.prev = node;
+    node.next = this.next;
+    this.next = node;
+    node.prev = this;
+    node.next.prev = node;
   }
-
+  
+  delete() {
+    this.prev.next = this.next;
+    this.next.prev = this.prev;
+  }
 }
+
 
 class LRUCache {
-  constructor(props) {
-    const { capacity } = props;
-    this.capacity = capacity;
+  constructor(capacity) {
+    this.limit = capacity;
+    this.size = 0;
+    this.head = new DoublyLinkedNode(0, 0);
+    this.tail = new DoublyLinkedNode(0, 0);
     this.cache = {};
-    this.head = new DoublyLinkedList(0, 0);
-    this.tail = this.head;
-    this.count = 0;
+    this.head.next = this.tail;
+    this.tail.prev = this.head;
   }
 
-  get (key) {
-    let output = null;
-    if (this.cache[key]) {
-      output = this.cache[key];
-      this.resetPosition(this.cache[key]);
+  get(key) {
+    const node = this.cache[key];
+    if (node) {
+      node.delete();
+        this.head.insert(node);
+      return node.value;
     }
-    return output;
+    return -1;
   }
 
-  set(key, value) {
-    if (this.cache[key]) {
-      this.resetPosition(this.cache[key]);
+  put(key, value) {
+    let node = this.cache[key];
+    if (node) {
+      node.value = value;
+      node.delete();      
     } else {
-      this.manageCapacity();
-      this.head.insert(new DoublyLinkedList(key, value));
-      if (this.head === this.tail) {
-        this.tail = this.head.next;
+      node = new DoublyLinkedNode(key, value);
+      this.cache[key] = node;
+      if (this.size < this.limit) {
+      this.size++;
+      } else {
+        const deleteNode = this.tail.prev;
+        delete this.cache[deleteNode.key];
+        deleteNode.delete();
       }
-    }
-  }
-
-  resetPosition(node) {
-    node.delete();
-    if (node === this.tail) this.tail = node.prev;
-    if (node === this.head) this.head = node.next;
+    }    
     this.head.insert(node);
   }
+}
 
-  manageCapacity() {
-    if (this.count < this.capacity) {
-      this.count++;
-    } else {
-      this.tail.prev.next = null;
-      this.tail = this.tail.prev;
-      this.tail.delete();
-    }
+const actions = ["LRUCache","put","put","get","put","get","put","get","get","get"]
+const values = [[2],[1,1],[2,2],[1],[3,3],[2],[4,4],[1],[3],[4]]
+
+let cache = new LRUCache(values[0][0]);
+let result;
+for (let i = 1; i < actions.length; i++) {
+  if (actions[i] === 'put') {
+    result = cache.put(...values[i]);
+  } else if (actions[i] === 'get') {
+    result = cache.get(...values[i]);
   }
+
+  console.log('result for action i - ', i, result); //[null,null,null,1,null,-1,null,-1,3,4]
 }
 
-const cache = new LRUCache(3);
-const numbers = [4, 3, 1, 0, 4, 0, 2, 0, 1];
-for (let i = 0; i < numbers.length; i++) {
-  cache.set(numbers[i], i);
-}
+
+/** 
+* Your LRUCache object will be instantiated and called as such:
+* var obj = new LRUCache(capacity)
+* var param_1 = obj.get(key)
+* obj.put(key,value)
+*/

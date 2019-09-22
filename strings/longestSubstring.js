@@ -24,7 +24,7 @@ Note that the answer must be a substring, "pwke" is a subsequence and not a subs
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
+var lengthOfLongestSubstring1 = function(s) {
   // create a map to see if a character was already in the string
   // if you find it
   // check the length of character and store
@@ -60,8 +60,22 @@ var lengthOfLongestSubstring = function(s) {
     return longestSubstringLength;
 };
 
-console.log(lengthOfLongestSubstring('au'));
-console.log(lengthOfLongestSubstring('tmmuxt'));
-console.log(lengthOfLongestSubstring(' '));
-console.log(lengthOfLongestSubstring('abcabcbb'));
-console.log(lengthOfLongestSubstring('bbtablud'));
+const lengthOfLongestSubstring2 = s => {
+  let ans = 0;
+  const indices = new Array(26);
+  for (let i = 0, j = 0; j < s.length; j++) {
+    const code = s.charCodeAt(j) - 97;
+    i = Math.max(indices[code] || 0, i);
+    const currLength = j - i + 1; // need to add 1 for length
+    ans = Math.max(ans, currLength); // max between both lengths
+    indices[code] = j + 1; // Add the next index because that would be the next value if found again.
+  }
+  return ans;
+}
+
+console.log(lengthOfLongestSubstring1('au'));
+console.log(lengthOfLongestSubstring2('tmmuxt'));
+console.log(lengthOfLongestSubstring2('abbcde'));
+console.log(lengthOfLongestSubstring1(' '));
+console.log(lengthOfLongestSubstring1('abcabcbb'));
+console.log(lengthOfLongestSubstring1('bbtablud'));

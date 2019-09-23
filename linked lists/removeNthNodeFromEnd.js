@@ -28,8 +28,8 @@ const removeNthFromEnd1 = (head, n) => {
   let current = head;
   
   while (current) {
-      listLength++;
-      current = current.next;
+    listLength++;
+    current = current.next;
   }
   
   const toRemove = listLength - n + 1;
@@ -60,7 +60,7 @@ const removeNthFromEnd1 = (head, n) => {
 };
 
 // 1 pass
-const removeNthFromEnd1 = (head, n) => {
+const removeNthFromEnd2 = (head, n) => {
   // use 2 pointers
   // first get to n
   // then start second pointer until first is null

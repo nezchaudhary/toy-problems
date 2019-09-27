@@ -1,8 +1,10 @@
 /* Design an algorithm to find all pairs of integers within an array which sum to a specified value */
 
+// Hash map solution with count has O(n) space and time but it can have duplicates
 
 
-// O (n log n) + O(n)
+// This solution avoids duplicates
+// O (n log n) + O(n) 
 const findPairSums = (arr, sum) => {
   const result = [];
   const sorted = arr.sort((a, b) => a - b);

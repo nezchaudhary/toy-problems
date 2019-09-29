@@ -97,7 +97,10 @@
  *
  */
 
- // recursive approach
+// recursive approach
+// Time Complexity O (n log(n))
+// Space Complexity O(n);
+
 const swap = (arr1, arr2) => {
   let result = [];
   while (arr1.length && arr2.length) {
@@ -144,8 +147,8 @@ const mergeSortBottomUp = (array) => {
     // skip 2 elements at a time
     let k = 0;
     for (let j = 0; j < toSort.length; j += 1) {
-       toSort[j] = swap(toSort[k], toSort[k + 1]);
-       k += 2;
+      toSort[j] = swap(toSort[k], toSort[k + 1]);
+      k += 2;
     }
   }
   return toSort[0];

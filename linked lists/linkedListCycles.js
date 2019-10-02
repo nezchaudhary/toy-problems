@@ -29,12 +29,17 @@
  * Constraint 1: Do this in linear time
  * Constraint 2: Do this in constant space
  * Constraint 3: Do not mutate the original nodes in any way
+ * 
+ * Follow up: Get node of cycle in linked list
+ * 
  */
 
 var Node = function (value) {
   return { value: value, next: null };
 };
 
+// Time Complexity O(n)
+// Space Complexity O(n)
 var hasCycle = function (linkedList) {
   // i: linkedList
   // o: boolean if linkedList has a cycle
@@ -61,16 +66,66 @@ var hasCycle = function (linkedList) {
     }
   }
   return false;
-
-  // constraint of constant space
-  // maybe keep a counter for nodes
-  // if the counter keep going into a loop
-  // it is a cycle
-  // how to check for loop ?? big question
-
-
-
 };
+
+// Time Complexity O(n)
+// Space Complexity O(1)
+const hasCycleConstantSpace = head => {
+  if (!head) return false;
+  let slow = head;
+  let fast = head;
+  
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;   
+    if (slow === fast) {
+      break;
+    }
+  }
+  
+  if (fast === null || fast.next === null) {
+    return false;
+  }
+  
+  return true;
+}
+
+const getLoopStartNode = head => {
+  if (!head) return false;
+  let slow = head;
+  let fast = head;
+  
+  // fast runner to get ahead in cycle by k steps when slow has moved k steps
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;  
+    // they have to meet if there is a cycle 
+    if (slow === fast) {
+      break;
+    }
+  }
+  
+  // There was no cycle so no meeting point
+  if (fast === null || fast.next === null) {
+    return null;
+  }
+
+  // else there was a cycle
+  // considering its a cycle, they met when fast is k steps away from meeting point which is also k steps from start
+  // reset slow to head
+  slow = head;
+
+  // when they met, it will be k steps ahead
+  // that is the node to return
+  while (slow !== fast) {
+    slow = slow.next;
+    fast = fast.next;
+  }
+
+  return fast;
+}
+
+
 
 
 var nodeA = Node('A');

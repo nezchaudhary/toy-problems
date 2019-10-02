@@ -1,4 +1,9 @@
-function isListPalindrome(l) {
+/*
+CTCI: 2.6 Linked List Palindrome
+Palindrome: Implement a function to check if a linked list is a palindrome
+*/
+
+const isListPalindrome = l => {
 
   // create stack approach
   

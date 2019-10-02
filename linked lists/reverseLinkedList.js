@@ -46,7 +46,7 @@ const reverseLinkedListIterative = (list) => {
   
   while (list !== null) {
     const newNode = new ListNode(list.val);
-    if (!node) {
+    if (!head) {
       head = newNode;
     } else {
         newNode.next = head;

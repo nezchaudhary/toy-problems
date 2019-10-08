@@ -58,13 +58,33 @@ Explanation:
 The output consists of two word squares. The order of output does not matter (just the order of words in each word square matters).
 */
 
+const getCode = x => {
+  return x.charCodeAt(0);
+};
+
+class TrieNode {
+  constructor(val) {
+    this.val = val;
+    this.children = new Array(26);
+    this.isWord = false;
+  }
+
+  getOrAddChild(val) {
+    const code = getCode(val);
+    let node = this.children[code]
+    if (!node) {
+      node = new TrieNode(val);
+      this.children[code - 97] = node;
+    }
+    return node;
+  }
+}
+
 
 
 
 const wordSquares = () => {
 
-
-  class Solution {
     class TrieNode {
         TrieNode[] children;
         boolean isWord;

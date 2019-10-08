@@ -43,6 +43,15 @@ const combinations = {
   9: 'wxyz'
 };
 
+
+/* 
+
+Time complexity O (3^n x 4^m)
+where N is the number of digits in the input that maps to 3 letters (e.g. 2, 3, 4, 5, 6, 8) and M is the number of digits in the input that maps to 4 letters (e.g. 7, 9), and N+M is the total number digits in the input.
+  
+Space complexity O (3^n x 4^m) since one has to keep 3^N X 4^M solutions.
+
+*/
 const telephoneWords = (digits, index = 0, word = '', result = []) => {
   if (digits.length === 0) return [];
   if (index === digits.length) {

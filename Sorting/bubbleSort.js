@@ -32,6 +32,10 @@
 
 // Feel free to add helper functions if needed.
 
+// Time Complexity O (n^2)
+// Space Complexity O(1)
+// Its best to use bubble sort when you have very little memory since the Space Complexity is O (2)
+
 
 const bubbleSort = function (array) {
   //i : an array of unsorted values

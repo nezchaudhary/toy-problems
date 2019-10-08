@@ -24,7 +24,8 @@ A solution set is:
  */
 
 // Two Pointer Trick
-const threeSum1 = nums => {
+// Time Complexity = O (n log n)
+const threeSum = nums => {
   if (!nums) return [];
   if (nums.length < 3) return [];
 

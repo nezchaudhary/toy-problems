@@ -40,3 +40,44 @@ const retry = (n, func, sCB, eCB) => {
 }
 
 const retry_f = retry(5, f, success, error);
+
+
+/// More possibilities
+
+// Primitive
+function fetch_retry(url, options, n) {
+  return fetch(url, options).catch(function(error) {
+      if (n === 1) throw error;
+      return fetch_retry(url, options, n - 1);
+  });
+}
+
+
+// ES6
+const fetch_retry = (url, options, n) => fetch(url, options).catch(function(error) {
+  if (n === 1) throw error;
+  return fetch_retry(url, options, n - 1);
+});
+
+// ES7
+const fetch_retry = async (url, options, n) => {
+  try {
+      return await fetch(url, options)
+  } catch(err) {
+      if (n === 1) throw err;
+      return await fetch_retry(url, options, n - 1);
+  }
+};
+
+const fetch_retry = async (url, options, n) => {
+  let error;
+  for (let i = 0; i < n; i++) {
+      try {
+          return await fetch(url, options);
+      } catch (err) {
+          error = err;
+      }
+  }
+  throw error;
+};
+

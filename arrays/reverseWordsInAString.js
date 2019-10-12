@@ -17,31 +17,44 @@ Could you do it in-place without allocating extra space?
 Related problem: Rotate Array
 */
 
-const reverseWords = function (str) {
+const reverseWords = arr => {
+  if (arr.length < 2 ) return arr;
+
+  let left = 0;
+  let right = arr.length - 1;
+  
+  // reverse the whole array
+  while (left < right) {
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+    left++;
+    right--;
+  }
+  
+  let curr = 0;
   let start = 0;
-  let end = str.length - 1;
- 
-  const reverse = (str, start, end) => {
-    while (start < end) {
-      [str[start], str[end]] = [str[end], str[start]];
-      start++;
-      end--;
+  
+  // every time you hit a word, reverse it back
+  while (curr <= arr.length) {
+    if (arr[curr] === ' ' || arr[curr] === undefined) {
+      let end = curr - 1;
+      while (start < end) {
+        [arr[start], arr[end]] = [arr[end], arr[start]];
+        start++;
+        end--;
+      }
+      start = curr + 1;
     }
+    curr++;
   }
+  
+  return arr;
+}
 
-  reverse(str, start, end);
 
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === ' ') {
-      reverse(str, start, i - 1);
-      start = i + 1;
-    }
-
-    if (i === str.length - 1) {
-      reverse(str, start, i);
-    }
-  }
-  return str;
-};
+console.log(reverseWords([
+  'p', 'e', 'r', 'f', 'e', 'c', 't', ' ',
+  'm', 'a', 'k', 'e', 's', ' ',
+  'p', 'r', 'a', 'c', 't', 'i', 'c', 'e' 
+]));
 
 console.log(reverseWords(["t", "h", "e", " ", "s", "k", "y", " ", "i", "s", " ", "b", "l", "u", "e"]));

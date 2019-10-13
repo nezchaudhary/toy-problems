@@ -136,13 +136,13 @@ const rotateFourRectangles = m => {
 const rotateFourRectanglesOnePass = m => {
   const n = m.length;
   for (let i = 0; i < Math.floor((n + 1)/ 2); i++){
-      for (let j = 0; j < Math.floor(n/2); j++) {
-          const temp = m[n - 1 - j][i];
-          m[n - 1 - j][i] = m[n - 1 - i][n - j - 1];
-            m[n - 1 - i][n - j - 1] = m[j][n - 1 -i];
-              m[j][n - 1 - i] = m[i][j];
-              m[i][j] = temp;
-      }
+    for (let j = 0; j < Math.floor(n/2); j++) {
+      const temp = m[n - 1 - j][i];
+      m[n - 1 - j][i] = m[n - 1 - i][n - j - 1];
+      m[n - 1 - i][n - j - 1] = m[j][n - 1 -i];
+      m[j][n - 1 - i] = m[i][j];
+      m[i][j] = temp;
+    }
   }
   return m;
 }

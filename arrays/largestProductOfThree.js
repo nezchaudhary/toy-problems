@@ -40,7 +40,7 @@ var largestProductOfThree = function (array) {
   // return Math.max(copy[0] * copy[1] * last, last * copy[copy.length - 2] * copy[copy.length - 3])
 
 
-  linear time solution
+  //linear time solution
   let maxA = -Infinity, maxB = -Infinity, maxC = -Infinity;
   let minA = Infinity, minB = Infinity;
 

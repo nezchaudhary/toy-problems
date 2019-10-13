@@ -61,7 +61,6 @@ The kth smallest value in t.
 // }
 
 const kthSmallestInBST = (tree, k) => {
-
   let result = null;
   const findK = (tree, k) => {
     if (tree == null)
@@ -81,25 +80,24 @@ const kthSmallestInBST = (tree, k) => {
 
   findK(tree, k);
   return result;
-  
-
-  // space complexity O(n)
-  // let stack = [];
-  // while (stack.length > 0 || t !== null) {
-  //   if (t !== null) {
-  //     stack.push(t);
-  //     t = t.left;
-  //   } else {
-  //     let lastNode = stack.pop();
-  //     k--;
-  //     if (k === 0) {
-  //       return lastNode.value;
-  //     }
-  //     t = lastNode.right;
-  //   }
-  // }
-
-  // return null;
-
 };
+
+// space complexity O(n)
+const kSmallestInBSTIterative = (t, k) => {
+  let stack = [];
+  while (stack.length > 0 || t !== null) {
+    if (t !== null) {
+      stack.push(t);
+      t = t.left;
+    } else {
+      let lastNode = stack.pop();
+      k--;
+      if (k === 0) {
+        return lastNode.value;
+      }
+      t = lastNode.right;
+    }
+  }
+  return null;
+}
 

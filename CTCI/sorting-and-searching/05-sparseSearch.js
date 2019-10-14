@@ -8,6 +8,9 @@ Input: ball, ['at', '', '', '', 'ball', '', '', '', 'car', '', '', 'dad', '', ''
 Output: 4
 */
 
+// Worst Time Complexity is O(n) if all values are empty strings
+// think about how to handle empty strings. What if the input is an empty string?
+
 const compareStr = (a, b) => {
   let i = 0;
   let j = 0;

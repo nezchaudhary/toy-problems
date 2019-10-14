@@ -1,4 +1,10 @@
 /*
+CTCI: 10.3 Search in Rotated Array
+Given a sorted array of n integers that has been rotated an unknown number of times, write code to find an element in the array. You may assume that the array was originally sorted in increasing order
+
+Example:
+Input: find 5 in { 15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14}
+Output: 8 (the index of 5 in the array)
 
 Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
 
@@ -62,26 +68,27 @@ const rotatedArraySearch = (nums, target) => {
   let low = 0;
   let high = nums.length - 1;
   while (low <= high) {
-      const mid = Math.floor((low + high) / 2);
-      
-      if (nums[mid] === target) {
-          return mid;
-      } else if (nums[mid] >= nums[low]) { // non rotated part of the array
-          if (target >= nums[low] && target < nums[mid]) { // check if target in between that
-              high = mid - 1;
-          } else {
-              low = mid + 1;
-          }
-      } else { // rotated part of the array
-          if (target <= nums[high] && target > nums[mid]) { // check if target is in between last and mid value
-              low = mid + 1;
-          } else {
-              high = mid - 1;
-          }
+    const mid = Math.floor((low + high) / 2);
+    
+    if (nums[mid] === target) {
+      return mid;
+    } else if (nums[mid] >= nums[low]) { // non rotated part of the array
+      if (target >= nums[low] && target < nums[mid]) { // check if target in between that
+        high = mid - 1;
+      } else {
+        low = mid + 1;
       }
+    } else { // rotated part of the array
+      if (target <= nums[high] && target > nums[mid]) { // check if target is in between last and mid value
+        low = mid + 1;
+      } else {
+        high = mid - 1;
+      }
+    }
   }
   return -1;
 };
 
 console.log('Rotated Array Search', rotatedArraySearch([4,5,6,7,0,1,2], 3)); // -1
 console.log('Rotated Array Search', rotatedArraySearch([4,5,6,7,0,1,2], 0)); // 4
+console.log('Rotated Array Search', rotatedArraySearch([2,2,2,3,4,2], 2)); // 2

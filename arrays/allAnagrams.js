@@ -17,13 +17,13 @@ const allAnagrams = s => {
   // o: an array of all anagrams of the string
   // c: try to optimize time compleixity
 
-  const result = [];
+  const result = new Set();
   const str = s.split('');
 
   const loop = (arr, l, r) => {
     // e: empty string
     if (l === r) {
-      result.push(arr.join(''));
+      result.add(arr.join(''));
     } else {
       for (let i = l; i <= r; i++) {
         [arr[i], arr[l]] = [arr[l], arr[i]];
@@ -34,7 +34,7 @@ const allAnagrams = s => {
   }
 
   loop(str, 0, s.length - 1);
-  return result;
+  return Array.from(result);
 
   // // for each value of string
   // // add every other value of string by making sure we dont add the value at the current index

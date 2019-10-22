@@ -35,7 +35,7 @@ const accumulateNumber = (str, index) => {
 }
 
 
-const compareString = (str1, str2) => {
+const compareString = (s1, s2) => {
   //i: 2 strings
   //o: integer (negative, 0, postitive)
   //e: empty string, differnt type of strings, not a string, differnt lengths
@@ -52,50 +52,50 @@ const compareString = (str1, str2) => {
   // if one is an alphabet and one is a number
   //alphabet wins
 
-  let str1Index = 0;
-  let str2Index = 0;
+  let i = 0;
+  let j = 0;
 
-  while (str1Index < str1.length && str2Index < str2.length) {
+  while (i < s1.length && j < s2.length) {
     //variables for characters
-    let str1Char = str1[str1Index];
-    let str2Char = str2[str2Index];
+    let s1Char = s1[i];
+    let s2Char = s2[j];
 
     //checks only if not equal
-    if (str1Char !== str2Char) {
+    if (s1Char !== s2Char) {
 
       //check the type first
-      let isNumberStr1Char = checkIsNumber(str1Char);
-      let isNumberStr2Char = checkIsNumber(str2Char);
+      let isNumS1Char = checkIsNumber(s1Char);
+      let isNumS2Char = checkIsNumber(s2Char);
 
       //if bother are not numbers
-      if (!isNumberStr1Char && !isNumberStr2Char) {
-        if (str1Char > str2Char) {
+      if (!isNumS1Char && !isNumS2Char) {
+        if (s1Char > s2Char) {
           return 1;
-        } else if (str2Char > str1Char) {
+        } else if (s2Char > s1Char) {
           return -1;
         }
       } else {
         //if at least one is a number accumulate numbers
-        let str1Number = '';
-        let str2Number = '';
-        if (isNumberStr1Char) {
-          str1Number = accumulateNumber(str1, str1Index + 1);
+        let s1Num = '';
+        let s2Num = '';
+        if (isNumS1Char) {
+          s1Num = accumulateNumber(s1, i + 1);
         }
-        if (isNumberStr2Char) {
-          str2Number = accumulateNumber(str2, str2Index + 1);
+        if (isNumS2Char) {
+          s2Num = accumulateNumber(s2, j + 1);
         }
-        if (str1Number > str2Number) {
+        if (s1Num > s2Num) {
           return 1;
-        } else if (str2Number > str1Number) {
+        } else if (s2Num > s1Num) {
           return -1;
         }
-        str1Index += (str1Number - 1);
-        str2Index += (str2Number - 1);
+        i += (s1Num - 1);
+        j += (s2Num - 1);
       }
 
     }
-    str1Index++;
-    str2Index++;
+    i++;
+    j++;
 
   }
   return 0;

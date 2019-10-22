@@ -64,10 +64,12 @@ const backspaceCompare = (s1, s2) => {
       }
     }
 
+    // The values after backspacing should be the same
     if (i >= 0 && j >= 0 && s1[i] !== s2[j]) {
       return false;
     }
 
+    // they should be both within bounds
     if (i >= 0 !== j >= 0) {
       return false;
     }

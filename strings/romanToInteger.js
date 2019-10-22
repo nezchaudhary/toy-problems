@@ -46,23 +46,24 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  * @param {string} s
  * @return {number}
  */
-var romanToInt = function(s) {
+const romanToInt = function(s) {
   const values = { 'I': 1, 'V' : 5, 'X' : 10, 'L' : 50, 'C' : 100, 'D' : 500, 'M' : 1000 };
   let result = 0;
   
   for (let i = 0; i < s.length; i++) {
-      let value;
-      if (values[s[i]] < values[s[i + 1]]) {
-          value = (values[s[i + 1]] - values[s[i]]);
-          i++;
-      } else {
-          value = values[s[i]];
-      }
-      result += value;
+    let value;
+    if (values[s[i]] < values[s[i + 1]]) {
+      value = (values[s[i + 1]] - values[s[i]]);
+      i++;
+    } else {
+      value = values[s[i]];
+    }
+    result += value;
   }
   
   return result;
 };
+
 console.log('roman to integer', romanToInt('MCMXCIV'));
 console.log('roman to integer', romanToInt('LVIII'));
 console.log('roman to integer', romanToInt('IX'));

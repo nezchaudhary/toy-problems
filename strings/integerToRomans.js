@@ -47,19 +47,19 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
  * @param {number} num
  * @return {string}
  */
-var intToRoman = function(num) {
+const intToRoman = function(num) {
   const cases = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
   const characters = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
   
   let i = 0;
   let result = '';
   while (num > 0) {
-      if (cases[i] > num) {
-          i++
-      } else {
-          num -= cases[i];
-          result += characters[i];
-      }
+    if (cases[i] > num) {
+      i++
+    } else {
+      num -= cases[i];
+      result += characters[i];
+    }
   }
   return result;
 

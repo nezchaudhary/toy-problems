@@ -45,7 +45,18 @@ const missingNumber = nums => {
   return i;
 };
 
+const missingNumberO1 = nums => {
+  const expected = (nums.length * (nums.length + 1)) / 2;
+  const sum = nums.reduce((total, val) => total + val, 0);
+  return expected - sum;
+}
+
 console.log('find missing number', missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1], 8));
 console.log('find missing number', missingNumber([3, 0, 1], 2));
 console.log('find missing number', missingNumber([0], 1));
 console.log('find missing number', missingNumber([1], 0));
+
+console.log('find missing number', missingNumberO1([9, 6, 4, 2, 3, 5, 7, 0, 1], 8));
+console.log('find missing number', missingNumberO1([3, 0, 1], 2));
+console.log('find missing number', missingNumberO1([0], 1));
+console.log('find missing number', missingNumberO1([1], 0));

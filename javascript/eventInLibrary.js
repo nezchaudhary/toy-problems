@@ -41,7 +41,6 @@ var mixEvents = function (obj) {
   }
 
   return obj;
- 
 };
 
 var obj = mixEvents({ name: 'Alice', age: 30 });

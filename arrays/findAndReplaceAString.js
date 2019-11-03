@@ -34,12 +34,12 @@ const isStringAMatch = (s1, s2, i) => {
   let charCount = s2.length; 
   let j = 0;
   while (i <= s1.length && charCount > 0) {
-      if (s1[i] !== s2[j]) {
-          return false;
-      }
-      charCount--;
-      i++;
-      j++;
+    if (s1[i] !== s2[j]) {
+        return false;
+    }
+    charCount--;
+    i++;
+    j++;
   }
   return true;
 }
@@ -51,9 +51,9 @@ const findReplaceString = (S, indexes, sources, targets) => {
   // O (n)
   const toReplace = indexes.map((val, i) => {
     return {
-        index: val,
-        source: sources[i],
-        target: targets[i],
+      index: val,
+      source: sources[i],
+      target: targets[i],
     };
   }).sort((a, b) => a.index - b.index);
   
@@ -62,22 +62,22 @@ const findReplaceString = (S, indexes, sources, targets) => {
   let result = '';
   
   while (j < toReplace.length) {
-      const replaceVals = toReplace[j];
-      let k = replaceVals.index;
-      
-      // accumalate string until now
-      while (i < k) {
-          result += S[i];
-          i++;
-      }
-      
-      // check if its a match
-      if (isStringAMatch(S, replaceVals.source, i)) {
-          result += replaceVals.target;
-          i += replaceVals.source.length;
-      }
-      j++;
-      
+    const replaceVals = toReplace[j];
+    let k = replaceVals.index;
+    
+    // accumalate string until now
+    while (i < k) {
+      result += S[i];
+      i++;
+    }
+    
+    // check if its a match
+    if (isStringAMatch(S, replaceVals.source, i)) {
+      result += replaceVals.target;
+      i += replaceVals.source.length;
+    }
+    j++;
+    
   }
   
   result += S.slice(i);

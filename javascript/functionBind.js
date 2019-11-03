@@ -25,7 +25,7 @@
 
 var bind = function (fn, obj, ...args) {
   return (...val) => {
-    return fn.apply(obj, args.concat(vals));
+    return fn.apply(obj, args.concat(val));
   }
 };
 

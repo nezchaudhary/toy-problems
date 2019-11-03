@@ -1,59 +1,41 @@
 /*
-
+Merge Intervals
+Solution
 Given a collection of intervals, merge all overlapping intervals.
 
-For example,
-Given [1,3],[2,6],[8,10],[15,18],
-return [1,6],[8,10],[15,18].
+Example 1:
+
+Input: [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+Example 2:
+
+Input: [[1,4],[4,5]]
+Output: [[1,5]]
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
 
 */
 
 
-function Interval(start, end) {
-  this.start = start;
-  this.end = end;
-};
-
-const mergeIntervals = (intervals) => {
-  // i: array of intervals
-  // o: consolidated intervals
-  // c: none
-  // e: none
-
-  let sorted = intervals.sort((a, b) => {
-    if (a.start !== b.start) return a.start - b.start;
-    return a.end - b.end;
-  });
-
-  const result = [];
-  let start;
-  let end;
-
-  for (let i = 0; i < sorted.length; i++) {
-    if (start === undefined) {
-      start = sorted[i].start;
-      end = sorted[i].end;
-    } else if (sorted[i].start > end) {
-      result.push(new Interval(start, end));
-      start = sorted[i].start;
-      end = sorted[i].end;
+const mergeIntervals = intervals => {
+  if (!intervals || !intervals.length) return [];
+  if (intervals.length === 1) return intervals;
+  const sortedByStart = intervals.sort((a, b) => a[0] - b[0]);
+  const result = [intervals[0]];
+  let j = 0;
+  
+  for (let i = 1; i < sortedByStart.length; i++) {
+    if (sortedByStart[i][0] <= result[j][1]) {
+      result[j][1] = Math.max(result[j][1], sortedByStart[i][1]); 
     } else {
-      end = end > sorted[i].end ? end : sorted[i].end;
+      result.push(sortedByStart[i]);
+      j++;
     }
   }
-
-  result.push(new Interval(start, end));
   return result;
 };
 
-let interval3 = new Interval(1, 3);
-let interval2 = new Interval(2, 6);
-let interval1 = new Interval(8, 10);
-let interval4 = new Interval(15, 18);
 
-let interval5 = new Interval(2, 3);
-let interval6 = new Interval(1, 4);
-
-
-console.log(mergeIntervals([interval1, interval2, interval3, interval4]));
-console.log(mergeIntervals([interval6, interval5]));
+console.log(mergeIntervals([[1,4],[4,5]])); //[[1,5]]
+console.log(mergeIntervals([[1,3],[2,6],[8,10],[15,18]])); // [[1,6],[8,10],[15,18]]

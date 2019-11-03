@@ -23,4 +23,13 @@ const addDigits = num => {
   }
 };
 
+// O(1) solution
+const addDigitsO1 = num => {
+  if(num > 0)
+    return num % 9 === 0 ? 9 : num % 9;
+  else
+    return 0;
+};
+
 console.log(addDigits(38));
+console.log(addDigitsO1(38));

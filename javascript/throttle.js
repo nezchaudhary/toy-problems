@@ -19,30 +19,36 @@ cb = 2800
 */
 
 
-const throttle = function (func, time) {
-  const startTime = Date.now();
-  
-  let resetTime;
-  return function () {
-    if (Date.now() < startTime + time) {
-      clearTimeout(resetTime);
-      resetTime = setTimeout(() => {
-        func();
-      }, time);
-    }
+// const throttle = function (func, time) {
+//   // call it once every <time>
+//   let start;
+//   let end;
+//   return function () {
+//     if (!start) {
+//       start = Date.now();
+//       end = start + time;
+//     } else {
+//       if (Date.now() > end) {
+//         func();
+//         start = Date.now();
+//         end = start + time;
+//       }
+//     }
+//   }
+// }
 
-    if (!resetTime) {
-      resetTime = setTimeout(() => {
-        func();
-      }, time);
+function throttle(fn, limit) {  
+  let waiting = false
+  return (...args) => {
+    if (!waiting) {
+      fn.apply(this, args)
+      waiting = true
+      setTimeout(() => {
+        waiting = false
+      }, limit)
     }
   }
 }
-
-//return a function
-//when function is called, start timer
-// if setTimeout is not set, set for execution
-// if function is called again within that time.. reset time
 
 const sendAjax = throttle(sayHello, 1000);
 sendAjax();

@@ -146,8 +146,8 @@ var robotPaths = function (n) {
   //
 };
 
-console.log(robotPaths(1));
-console.log(robotPaths(2));
-console.log(robotPaths(3));
-console.log(robotPaths(4));
-console.log(robotPaths(5));
+console.log(robotPaths(1)); // 1
+console.log(robotPaths(2)); // 2
+console.log(robotPaths(3)); // 12
+console.log(robotPaths(4)); // 184
+console.log(robotPaths(5)); // 8512

@@ -40,38 +40,33 @@ var numUniqueEmails = function(emails) {
   let emailCount = 0;
   let emailsFound = {};
   
-  
-  
   for (let i= 0; i < emails.length; i++) {
-      const emailBreakUp = emails[i].split('@');
-      const user = emailBreakUp[0];
-      const domain = emailBreakUp[1];
+    const emailBreakUp = emails[i].split('@');
+    const user = emailBreakUp[0];
+    const domain = emailBreakUp[1];
+    
+    if (!emailsFound[domain]) {
+        emailsFound[domain] = {};
+    }
       
-      if (!emailsFound[domain]) {
-          emailsFound[domain] = {};
+    let cleanUserName = '';
+    
+    for (let j = 0; j < user.length; j++) {
+      if (user[j] !== '+' && user[j] !== '.') {
+        cleanUserName += user[j];
+      } else if (user[j]  === '+') {
+        break;
+      } else if (user[j] === '.') {
+        continue;
       }
+    }
       
-      let cleanUserName = '';
-      
-      for (let j = 0; j < user.length; j++) {
-          if (user[j] !== '+' && user[j] !== '.') {
-              cleanUserName += user[j];
-          } else if (user[j]  === '+') {
-              break;
-          } else if (user[j] === '.') {
-              continue;
-          }
-      }
-      
-      
-      
-      if (!emailsFound[domain][cleanUserName]) {
-          emailCount++;
-          emailsFound[domain][cleanUserName] = true;
-      }
+    if (!emailsFound[domain][cleanUserName]) {
+      emailCount++;
+      emailsFound[domain][cleanUserName] = true;
+    }
   }
   return emailCount;
-  
 };
 
 console.log(numUniqueEmails(["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]))

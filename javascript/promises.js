@@ -112,6 +112,7 @@ var p3 = new Promise((resolve, reject) => {
 var p4 = new Promise((resolve, reject) => {
   setTimeout(() => resolve('four'), 4000);
 });
+
 var p5 = new Promise((resolve, reject) => {
   reject(new Error('reject'));
 });
@@ -123,5 +124,5 @@ Promise.all([p1, p2, p3, p4, p5])
   console.log(values);
 })
 .catch(error => { 
-  console.error(error.message)
+  console.log(error.message)
 });

@@ -74,7 +74,7 @@ class MinStack1Space {
       this.stack.push(value);
       this.minValue = value;
     } else if (value < this.minValue) {
-      this.stack.push(2*value - this.minValue);
+      this.stack.push(2 * value - this.minValue);
       this.minValue = value;
     } else {
       this.stack.push(value);

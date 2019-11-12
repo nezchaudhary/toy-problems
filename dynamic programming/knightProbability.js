@@ -52,7 +52,7 @@ const knightProbability = (N, K, row, col) => {
           const currR = r + rMoves[k];
           const currC = c + cMoves[k];
           if (inside(currR, currC, N)) {
-              newBoard[currR][currC] += board[r][c] / 8.0;
+            newBoard[currR][currC] += board[r][c] / 8.0;
           }
         }
       }
@@ -65,7 +65,7 @@ const knightProbability = (N, K, row, col) => {
   let result = 0;
   for (let row of board) {
     for (let square of row) {
-        result += square;
+      result += square;
     }
   }
   return result;

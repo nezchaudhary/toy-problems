@@ -39,16 +39,16 @@ var climbStairs = function(stairs) {
   const visited = {};
   
   const countWays = (n, memo) => {
-      if (n < 0) {
-          return 0;
-      } else if (n === 0) {
-          return 1;
-      } else if (memo[n] !== undefined)  {
-          return memo[n];
-      } else {
-          memo[n] = countWays(n - 1, memo) + countWays(n - 2, memo);
-          return memo[n];
-      }
+    if (n < 0) {
+      return 0;
+    } else if (n === 0) {
+      return 1;
+    } else if (memo[n] !== undefined)  {
+      return memo[n];
+    } else {
+      memo[n] = countWays(n - 1, memo) + countWays(n - 2, memo);
+      return memo[n];
+    }
   }
   
   return countWays(stairs, visited);

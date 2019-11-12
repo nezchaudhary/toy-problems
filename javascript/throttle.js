@@ -1,11 +1,5 @@
-function sayHello() {
-  console.log('Hello, World');
-}
-
-sayHello();
 
 // click 'run'
-
 // Throttle
 /*
 wait = 1000
@@ -18,37 +12,43 @@ c = 1800
 cb = 2800
 */
 
+/*
+Throttling enforces a maximum number of times a function can be called over time. As in 
+"execute this function at most once every 100 milliseconds."
 
-// const throttle = function (func, time) {
-//   // call it once every <time>
-//   let start;
-//   let end;
-//   return function () {
-//     if (!start) {
-//       start = Date.now();
-//       end = start + time;
-//     } else {
-//       if (Date.now() > end) {
-//         func();
-//         start = Date.now();
-//         end = start + time;
-//       }
-//     }
-//   }
-// }
+*/
 
-function throttle(fn, limit) {  
-  let waiting = false
-  return (...args) => {
-    if (!waiting) {
-      fn.apply(this, args)
-      waiting = true
-      setTimeout(() => {
-        waiting = false
-      }, limit)
-    }
+
+
+const throttle = (func, limit) => {
+  let inThrottle;
+  return function (...args) {
+    if (!inThrottle) {
+      fn.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit)
+    };
   }
 }
+
+
+
+const add = (a, b) => console.log('result', a + b);
+function sayHello() {
+  console.log('Hello, World');
+}
+
+sayHello();
+
+
+const addThrottle = throttle(add, 1000);
+addThrottle(3, 4);
+setTimeout(() => addThrottle(3, 4), 500);
+addThrottle(3, 4);
+addThrottle(3, 4);
+addThrottle(3, 4);
+addThrottle(3, 4);
+
 
 const sendAjax = throttle(sayHello, 1000);
 sendAjax();

@@ -24,14 +24,16 @@ const lengthOfLIS = nums => {
   let maxLength = 1;
   
   for (let i = 1; i < nums.length; i++) {
-      let currLength = 0;
-      for (let j = 0; j < i; j++) {
-          if (nums[i] > nums[j]) {
-              currLength = Math.max(currLength, result[j]);
-          }
+    let currLength = 0;
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        currLength = Math.max(currLength, result[j]);
       }
-      result[i] = currLength + 1;
-      maxLength = Math.max(result[i], maxLength);
+    }
+    result[i] = currLength + 1;
+    maxLength = Math.max(result[i], maxLength);
   }
   return maxLength;
 };
+
+console.log(lengthOfLIS([10,9,2,5,3,7,101,18])); // 4

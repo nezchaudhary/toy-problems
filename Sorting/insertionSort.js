@@ -53,28 +53,57 @@ const defaultComparator = (a, b) => {
   return a > b;
 };
 
-var insertionSort = function (array, comparator = defaultComparator, index = 0) {
-  //maybe keep track of the indexes with the value
-  //as you check values you will replace values based on where they belong
-  //if the value is the same, they stay where they are
-  for (index; index < array.length - 1; index++) {
-    if (comparator(array[index], array[index + 1]) > 0) {
-      [array[index], array[index + 1]] = [array[index + 1], array[index]];
-      insertionSort(array, comparator, index - 1);
-    } 
+// var insertionSort = function (array, comparator = defaultComparator, index = 0) {
+//   //maybe keep track of the indexes with the value
+//   //as you check values you will replace values based on where they belong
+//   //if the value is the same, they stay where they are
+//   for (index; index < array.length - 1; index++) {
+//     if (comparator(array[index], array[index + 1]) > 0) {
+//       [array[index], array[index + 1]] = [array[index + 1], array[index]];
+//       insertionSort(array, comparator, index - 1);
+//     } 
+//   }
+//   return array;
+// };
+
+const insertionSort = inputArr => {
+  let length = inputArr.length;
+  for (let i = 1; i < length; i++) {
+    let key = inputArr[i];
+    let j = i - 1;
+    while (j >= 0 && inputArr[j] > key) {
+      inputArr[j + 1] = inputArr[j];
+      j = j - 1;
+    }
+    inputArr[j + 1] = key;
   }
-  return array;
+  return inputArr;
 };
 
-console.log(insertionSort([{ value: 2 }, { value: 1 }, { value: 3 }]));
-console.log(insertionSort([{ value: 4 }, { value: 1 }, { value: 3 }, { value: 2 }]));
-let a = testingTransform([4, 1, 3, 3]);
-console.log('testingTransform', a);
-console.log(insertionSort(a));
-console.log(insertionSort(testingTransform([1, 100, 2, 43, 21])));
-var b = testingTransform([5, 4, 3]);
-console.log(insertionSort(b));
-var c = testingTransform([1, 2, 3]);
-console.log(insertionSort(c));
-var e = testingTransform([0, 1, 'a', ';', [], {}, undefined, null]);
-console.log(insertionSort(e));
+console.log(insertionSort([2, 3, 6,4, 2, 8, 5]));
+
+const insertionSort = input => {
+  for (let i = 0; i < input.length; i++) {
+    let temp = input[i];
+    let pointer = i;
+    while (pointer > 0 && temp < input[pointer - 1]) {
+      input[pointer] = input[pointer - 1];
+      pointer--;
+    }
+    input[pointer] = temp;
+  }
+  return input;
+}
+
+// console.log(insertionSort([{ value: 2 }, { value: 1 }, { value: 3 }]));
+// console.log(insertionSort([{ value: 4 }, { value: 1 }, { value: 3 }, { value: 2 }]));
+// let a = testingTransform([4, 1, 3, 3]);
+// console.log('testingTransform', a);
+// console.log(insertionSort(a));
+// console.log(insertionSort(testingTransform([1, 100, 2, 43, 21])));
+// var b = testingTransform([5, 4, 3]);
+// console.log(insertionSort(b));
+// var c = testingTransform([1, 2, 3]);
+// console.log(insertionSort(c));
+// var e = testingTransform([0, 1, 'a', ';', [], {}, undefined, null]);
+// console.log(insertionSort(e));

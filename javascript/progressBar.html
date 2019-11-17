@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Progress Bar</title>
+    <style>
+      body {
+        background: lightgrey;
+      }
+
+      .bar-container {
+        width: 250px;
+        height: 30px;
+        margin: 40px;
+        background: grey;
+      }
+
+      .bar-container #bar {
+        background: green;
+        height: 100%;
+        width: 0%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar-container">
+      <div id="bar"></div>
+    </div>
+    <button onclick="fillBarWithCSS()">Start</button>
+    <script>
+        const bar = document.getElementById('bar');
+      
+        const fillBar = () => {
+          let atPercent = 0;
+          const interval = setInterval(() => {
+            if (atPercent >= 100) {
+              clearInterval(interval);
+            } else {
+              bar.style.width = `${++atPercent}%`;
+            }
+          }, (5 * 1000) / 100);
+        }
+
+        const fillBarWithCSS = () => {
+          bar.style.transition = `${5}s linear width`;
+          bar.style.width = '100%';
+        }
+      </script>
+  </body>
+</html>

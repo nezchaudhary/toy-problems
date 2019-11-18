@@ -1,4 +1,5 @@
 /*
+Find all Numbers Disappeared in an array
 
 Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
 
@@ -20,44 +21,65 @@ Output:
  * @param {number[]} nums
  * @return {number[]}
  */
-const findDisappearedNumbers = nums => {
-  // ideal array would be [1, 2, 3, 4 ...] upto nums.length;
-  // easy answer is keep a hash map of occurences and then loop again to see which were not in the array
-  // we have n to loop over and indexes + 1 as needed value
-  // [4, 3, 2, 7, 8, 2, 3, 1]
-  // [1, 2, 3, 4, 3, 2, 7, 8] // index + 1 is missing i.e 5, 6
-  //
-  //i = 0, 1
-  // j = 3, 6, 2, 1
-  // temp = 7, 3, 2, 3
-  const result = [];
-  let i = 0;
 
-  //
-  while(i < nums.length) {
-    const expected = i + 1;
-    if (nums[i] !== expected) {
-      while (nums[i] !== i + 1) {
-        let j = nums[i] - 1;
-        let temp = nums[j];
-        nums[j] = nums[i];
-        nums[i] = temp;
-        if (nums[j] === nums[i]) {
-            break;
-        }
-        
+const findDisappearedNumbers = nums => {
+  for (let i = 0; i < nums.length; i++) {
+      const newIndex = Math.abs(nums[i]) - 1;
+      if (nums[newIndex] > 0) {
+          nums[newIndex] *= -1;
       }
-    }
-    i++;
   }
   
-  // go over sorted array and push missing values
+  const result = [];
+  
   for (let i = 0; i < nums.length; i++) {
-    if (nums[i] !== i + 1) {
-      result.push(i + 1);
-    }
+      if (nums[i] > 0) {
+          result.push(i + 1);
+      }
   }
   return result;
 };
+
+
+// const findDisappearedNumbers = nums => {
+//   // ideal array would be [1, 2, 3, 4 ...] upto nums.length;
+//   // easy answer is keep a hash map of occurences and then loop again to see which were not in the array
+//   // we have n to loop over and indexes + 1 as needed value
+//   // [4, 3, 2, 7, 8, 2, 3, 1]
+//   // [1, 2, 3, 4, 3, 2, 7, 8] // index + 1 is missing i.e 5, 6
+//   //
+//   //i = 0, 1
+//   // j = 3, 6, 2, 1
+//   // temp = 7, 3, 2, 3
+//   const result = [];
+//   let i = 0;
+
+//   //
+//   while(i < nums.length) {
+//     const expected = i + 1;
+//     if (nums[i] !== expected) {
+//       while (nums[i] !== i + 1) {
+//         let j = nums[i] - 1;
+//         let temp = nums[j];
+//         nums[j] = nums[i];
+//         nums[i] = temp;
+//         if (nums[j] === nums[i]) {
+//             break;
+//         }
+        
+//       }
+//     }
+//     i++;
+//   }
+  
+//   // go over sorted array and push missing values
+//   for (let i = 0; i < nums.length; i++) {
+//     if (nums[i] !== i + 1) {
+//       result.push(i + 1);
+//     }
+//   }
+//   return result;
+// };
+
 
 console.log('disappeared numbers', findDisappearedNumbers([4, 3, 2, 7, 8, 2, 3, 1]));

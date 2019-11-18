@@ -42,8 +42,6 @@ var maxSubArrayLen = function (nums, k) {
     }
 
     if (sumHashMap[current] === undefined) sumHashMap[current] = i;
-
-
   }
   return maxSizeSubArray;
 };
@@ -51,3 +49,4 @@ var maxSubArrayLen = function (nums, k) {
 console.log(maxSubArrayLen([1, -1, 5, -2, 3], 3)); // 4
 console.log(maxSubArrayLen([-2, -1, 2, 1], 1)); // 2
 console.log(maxSubArrayLen([1, 0, -1], -1)); // 2
+console.log(maxSubArrayLen([-2,1,-3,4,-1,2,1,-5,4], 0)); // 4

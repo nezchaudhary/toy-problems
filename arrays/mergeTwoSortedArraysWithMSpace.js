@@ -1,46 +1,21 @@
-const mergeTwoArraysWithConstantSpace = (arr1, arr2) => {
-  // let m = arr1.length;
-  // let n = arr2.length;
+/*
 
-  // // Iterate through all elements of ar2[] starting from
-  // // the last element
-  // for (let i = n - 1; i >= 0; i--) {
-  //   /* Find the smallest element greater than ar2[i]. Move all
-  //      elements one position ahead till the smallest greater
-  //      element is not found */
-  //   let last = arr1[m - 1];
-  //   for (let j = m - 2; j >= 0 && arr1[j] > arr2[j]; j--) {
-  //     arr1[j+1] = arr1[j];
+Merge two sorted arrays with O(1) extra space
+We are given two sorted array. We need to merge these two arrays such that the initial numbers (after complete sorting) are in the first array and the remaining numbers are in the second array. Extra space allowed in O(1).
 
-  //     // If there was a greater element
-  //     if (j != m - 2 || last > arr2[i]) {
-  //       arr1[j + 1] = arr2[i];
-  //       arr2[i] = last;
-  //     }
-  //   }
-  // }
-  // return arr1.concat(arr2);
-  let arr1Index = arr1.length - 1;
-  let arr2Index = arr2.length - 1;
-  while (arr1Index >= 0 && arr2Index >= 0) {
-    if (arr1[arr1Index] > arr2[arr2Index]) {
-      [arr1[arr1Index], arr2[arr2Index]] = [arr2[arr2Index], arr1[arr1Index]];
-      arr2Index--;
-    } else {
-      arr1Index--;
-    }
-  }
-  console.log('arrrays', arr1, arr2);
+Example:
 
-  while (arr2Index >= 0) {
+Input:  ar1[] = {10};
+        ar2[] = {2, 3};
+Output: ar1[] = {2}
+        ar2[] = {3, 10}  
 
-  }
-
-  while (arr1Index >= 0) {
-
-  }
-}
-
+Input:  ar1[] = {1, 5, 9, 10, 15, 20};
+        ar2[] = {2, 3, 8, 13};
+Output: ar1[] = {1, 2, 3, 5, 8, 9}
+        ar2[] = {10, 13, 15, 20} 
+        
+*/
 
 
 // shorter array extra space

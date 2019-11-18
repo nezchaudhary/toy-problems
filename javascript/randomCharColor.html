@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <body>
+      <div id="main">
+
+      </div>
+    <script>
+        const main = document.getElementById('main');
+      const createSpan = (text, color) => {
+        const span = document.createElement('span');
+        span.innerHTML = `${text}`;
+        span.style.color = color;
+        return span;
+      }
+
+      const displayRandomColorString = (str, colors) => {
+        let colorIndex = 0;
+        for (let i = 0; i < str.length; i++) {
+          if (str[i] !== ' ') {
+            main.appendChild(createSpan(str[i], colors[colorIndex%colors.length]));
+            colorIndex++;
+          } else {
+            main.appendChild(createSpan(str[i]));
+          }
+        }
+      }
+
+      displayRandomColorString('Lorem ipsum dolor sit amet', ['red', 'blue', 'green', 'yellow']);
+    </script>
+  </body>
+</html>

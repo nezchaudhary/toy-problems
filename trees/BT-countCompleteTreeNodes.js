@@ -20,7 +20,8 @@ Output: 6
 
 
 const exists = (i, depth, node) => {
-  let left = 0; let right = Math.pow(2, depth) - 1;
+  let left = 0; 
+  let right = Math.pow(2, depth) - 1;
   for (let d = 0; d < depth; d++) {
     let mid = Math.floor((left + right) / 2);
     if (i <= mid) {

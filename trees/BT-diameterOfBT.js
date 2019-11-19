@@ -18,23 +18,23 @@ Note: The length of path between two nodes is represented by the number of edges
 // Space Complexity O(n)
 const diameterOfBinaryTree = root => {
   if (!root) return 0
-let max = 1;
+  let max = 1;
 
-const dfs = (root) => {
-  if (!root) return 0;
+  const dfs = (root) => {
+    if (!root) return 0;
 
-  const l = dfs(root.left)
-  const r = dfs(root.right)
+    const l = dfs(root.left)
+    const r = dfs(root.right)
 
-  // update ans, can use both children
-  const sum = l + r + 1;
-  max = Math.max(max, sum);
-    
+    // update ans, can use both children
+    const sum = l + r + 1;
+    max = Math.max(max, sum);
+      
 
-  // return longest path with only one child
-  return Math.max(l, r) + 1;
-}
+    // return longest path with only one child
+    return Math.max(l, r) + 1;
+  }
 
-dfs(root)
-return max - 1;
+  dfs(root)
+  return max - 1;
 };

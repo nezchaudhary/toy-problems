@@ -1,41 +1,4 @@
 
-const getTargetSumPaths = (node, target, results = [], path = []) => {
-  if (!node) {
-    return results;
-  }
-
-  //base case if we reach a node with no left or right
-  if (!node.left && !node.right) {
-    if (target === node.value) {
-      path.push(node.value);
-      results.push(path.slice());
-      path.pop();
-    }
-    return;
-  }
-
-  //if its greater, no point moving ahead, return to previous node
-  if (node.value > target) return;
-
-  //if value is less than target, add to path and continue to traverse depth first 
-  if (node.value < target) {
-    path.push(node.value);
-    node.left ? getTargetSumPaths(node.left, target - node.value, results, path) : null;
-    node.right ? getTargetSumPaths(node.right, target - node.value, results, path) : null;
-  }
-  //when done traversing this node, pop it off the path;
-  path.pop();
-
-  return results;
-}
-
-const BST = function (value) {
-  this.value = value;
-  this.left = null;
-  this.right = null;
-}
-
-
 /*
 
 Input -> Binary Tree
@@ -89,6 +52,42 @@ const getTargetSumPaths = () => {
 }
 
 */
+const getTargetSumPaths = (node, target, results = [], path = []) => {
+  if (!node) {
+    return results;
+  }
+
+  //base case if we reach a node with no left or right
+  if (!node.left && !node.right) {
+    if (target === node.value) {
+      path.push(node.value);
+      results.push(path.slice());
+      path.pop();
+    }
+    return;
+  }
+
+  //if its greater, no point moving ahead, return to previous node
+  if (node.value > target) return;
+
+  //if value is less than target, add to path and continue to traverse depth first 
+  if (node.value < target) {
+    path.push(node.value);
+    node.left ? getTargetSumPaths(node.left, target - node.value, results, path) : null;
+    node.right ? getTargetSumPaths(node.right, target - node.value, results, path) : null;
+  }
+  //when done traversing this node, pop it off the path;
+  path.pop();
+
+  return results;
+}
+
+const BST = function (value) {
+  this.value = value;
+  this.left = null;
+  this.right = null;
+}
+
 
 
 let root1 = new BST(5);

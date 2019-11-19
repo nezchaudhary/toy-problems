@@ -9,7 +9,6 @@ Call a group large if it has 3 or more characters.  We would like the starting a
 
 The final answer should be in lexicographic order.
 
- 
 
 Example 1:
 
@@ -52,21 +51,21 @@ const largeGroupPositions = function(S) {
             count++;
         } else if (char !== S[i] && char !== '') {
             if (count >= 3) {
-                result.push([start, i - 1]);
+              result.push([start, i - 1]);
             }
             char = S[i];
             count = 1;
             start = i;
         } else  {
-            char = S[i];
-            start = i;
-            count++;
+          char = S[i];
+          start = i;
+          count++;
         }
         i++;
     }
     
     if (count >= 3) {
-        result.push([start, i - 1]);
+      result.push([start, i - 1]);
     }
     return result;
 };

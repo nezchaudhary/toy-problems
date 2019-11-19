@@ -37,17 +37,18 @@ to_delete contains distinct values between 1 and 1000.
  * @param {number[]} to_delete
  * @return {TreeNode[]}
  */
-const delNodes = function(root, to_delete) {
+const deleteNodesAndReturnForest = function(root, to_delete) {
   if (!root) return [];
+
+  // create a map with deleted nodes
   const deleteMap = to_delete.reduce((result, val) => {
     result[val] = true;
     return result;
   }, {});
   
-    const roots = [];
-
+  const roots = [];
   
-  const help = (root, deletedParent) => {
+  const traverse = (root, deletedParent) => {
     if (root === null) return null;
     if (deletedParent && !deleteMap[root.val]) {
       roots.push(root);
@@ -55,10 +56,10 @@ const delNodes = function(root, to_delete) {
     
     const deleteMyself = deleteMap[root.val];
     
-    root.left = help(root.left, deleteMyself);
-    root.right = help(root.right, deleteMyself);
+    root.left = traverse(root.left, deleteMyself);
+    root.right = traverse(root.right, deleteMyself);
     return deleteMyself ? null : root;
   }
-  help(root, true);
+  traverse(root, true);
   return roots;
 };

@@ -47,13 +47,15 @@ Return Engineer or Doctor.
 
 */
 
-const findProfession = (level, pos)  => {
+const findProfession = (level, position)  => {
   if (level === 1) return 'Engineer';
 
-  if (findProfession(level - 1, Math.floor((pos + 1) / 2)) === 'Doctor') {
-    return pos % 2 ? 'Doctor' : 'Engineer';
+  if (findProfession(level - 1, Math.floor((position + 1) / 2)) === 'Doctor') {
+    return position % 2 ? 'Doctor' : 'Engineer';
   }
 
-  return pos % 2 ? 'Engineer' : 'Doctor';
+  return position % 2 ? 'Engineer' : 'Doctor';
 };
+
+console.log(findProfession(3, 3));
 

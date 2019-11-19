@@ -15,7 +15,7 @@ const nextGreatestLetter = (letters, target, low = 0, high = letters.length - 1,
     return highest || letters[0];
   }
 
-  let midpoint = Math.floor(low + (high - low) / 2);
+  let midpoint = Math.floor((high + low) / 2);
 
   if (letters[midpoint] > target && (letters[midpoint] < highest || highest === '')) {
     highest = letters[midpoint];

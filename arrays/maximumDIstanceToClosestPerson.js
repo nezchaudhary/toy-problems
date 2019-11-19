@@ -35,21 +35,23 @@ const maxDistToClosest = seats => {
   const left = new Array(N).fill(N)
   const right = new Array(N).fill(N);
 
-  for (let i = 0; i < N; ++i) {
-    if (seats[i] == 1) left[i] = 0;
-    else if (i > 0) left[i] = left[i-1] + 1;
+  for (let i = 0; i < N; i++) {
+    if (seats[i] === 1) left[i] = 0;
+    else if (i > 0) left[i] = left[i - 1] + 1;
   }
 
-  for (let i = N-1; i >= 0; --i) {
-    if (seats[i] == 1) right[i] = 0;
-    else if (i < N-1) right[i] = right[i+1] + 1;
+  for (let i = N-1; i >= 0; i--) {
+    if (seats[i] === 1) right[i] = 0;
+    else if (i < N - 1) right[i] = right[i + 1] + 1;
   }
 
   let ans = 0;
-  for (let i = 0; i < N; ++i)
-    if (seats[i] == 0) {
+  for (let i = 0; i < N; i++)
+    if (seats[i] === 0) {
       ans = Math.max(ans, Math.min(left[i], right[i]));
     }
 
   return ans;
 };
+
+console.log(maxDistToClosest([1,0,0,0,1,0,1])) // 2

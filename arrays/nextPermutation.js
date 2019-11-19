@@ -24,32 +24,34 @@ const reverse = (arr, i) => {
   let start = i;
   let end = arr.length - 1;
   while (start < end) {
-      swap(arr, start, end);
-      start++;
-      end--;
+    swap(arr, start, end);
+    start++;
+    end--;
   }
 }
 
-var nextPermutation = function(nums) {
+var nextPermutation = nums => {
   if (nums.length === 0) return nums;
   if (nums.length === 1) return nums;
   let i = nums.length - 2;
   let j = nums.length - 1;
   
   while (i >= 0 && nums[i + 1] <= nums[i]) {
-      i--;
+    i--;
   }
   
   if (i >= 0) {
 
-      while (j >= 0 && nums[j] <= nums[i]) {
-          j--;
-      }
-      swap(nums, i, j);
+    while (j >= 0 && nums[j] <= nums[i]) {
+      j--;
+    }
+    swap(nums, i, j);
   }
   
   reverse(nums, i + 1);
-
   return nums;    
-  
 };
+
+console.log(nextPermutation([1, 2, 3]));
+console.log(nextPermutation([3, 2, 1]));
+console.log(nextPermutation([1, 1, 5, 1]));

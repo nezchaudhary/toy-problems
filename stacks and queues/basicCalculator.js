@@ -38,11 +38,11 @@ const accumulateNumber = (str, i) => {
   return result;
 }
 
-const process = (a, b, o) => {
+const processNum = (a, b, o) => {
   if (o === '+') {
-      return a + b;
+    return a + b;
   } else if (o === '-') {
-      return a - b;   
+    return a - b;   
   }
   return b;
 };
@@ -60,38 +60,37 @@ var calculate = function(s) {
   let i = 0;
   
   while (i < s.length) {
-      const char = s[i];
-      if (s[i] === ' ') {
-          i++;
-          continue;
-      } else if (isNumber(char)) {
-          curr = accumulateNumber(s, i);
-          i += curr.length;
-          result = process(result, parseInt(curr), operand);
-          curr = '';
-          operand = '';
-      }  else if (char === '+' || char === '-') {
-          operand = char;
-          i++;
-      } else if ( char === '(') {
-          if (operand) {
-              numStack.push(result);
-              operandStack.push(operand);
-              operand = '';
-              result = 0;
-          }
-          i++;
-      } else if (char === ')') {
-          if (numStack.length > 0) {
-              result = process(numStack.pop(), result, operandStack.pop());
-              
-          }
-          i++;
+    const char = s[i];
+    if (s[i] === ' ') {
+      i++;
+      continue;
+    } else if (isNumber(char)) {
+      curr = accumulateNumber(s, i);
+      i += curr.length;
+      result = processNum(result, parseInt(curr), operand);
+      curr = '';
+      operand = '';
+    }  else if (char === '+' || char === '-') {
+      operand = char;
+      i++;
+    } else if ( char === '(') {
+      if (operand) {
+        numStack.push(result);
+        operandStack.push(operand);
+        operand = '';
+        result = 0;
       }
+      i++;
+    } else if (char === ')') {
+      if (numStack.length > 0) {
+        result = processNum(numStack.pop(), result, operandStack.pop());
+      }
+      i++;
+    }
   }
   
   while (numStack.length > 0) {
-      result = process(numStack.pop(), result, operandStack.pop());    
+    result = process(numStack.pop(), result, operandStack.pop());    
   }
   
   return result;

@@ -20,7 +20,6 @@ Output: {apple, like, there}
 
 // A -> p -> p word(‘app’)-> l -> -> e (word == ‘apple’)
 
-
 class Trie {
 	constructor(char = null) {
     this.children = [];

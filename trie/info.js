@@ -68,8 +68,7 @@ For the space-optimized presentation of prefix tree, see compact prefix tree.
 
 Insert and search costs O(key_length), however the memory requirements of Trie is 
 O(ALPHABET_SIZE * key_length * N) where N is number of keys in Trie. There are efficient 
-representation of trie nodes (e.g. compressed trie, ternary search tree, etc.) to minimize memory
- requirements of trie.
+representation of trie nodes (e.g. compressed trie, ternary search tree, etc.) to minimize memory requirements of trie.
 
 Time Complexity:
 create: O(mn) (m is the longest key, n is the number of keys);

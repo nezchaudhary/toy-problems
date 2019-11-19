@@ -11,7 +11,7 @@ const throttle = (delay, func, limit) => {
       let windowStart = linkedList.value;
       if ((now - windowStart) > delay) {
         linkedList = linkedList.next;
-        func(...args);
+        func.call(this, ...args);
         linkedList.add(now);
       } 
     } else {
@@ -21,7 +21,7 @@ const throttle = (delay, func, limit) => {
       setTimeout(() => {
         let values = queueList.value;
         queueList = queueList.next();
-        func(...values);
+        func.call(this, ...values);
         linkedList.add(Date.now());
       }, difference);
     }
@@ -47,7 +47,7 @@ class RateLimiter {
       let windowStart = this.lastRequests.head.value;
       if ((now - windowStart) > this.delay) {
         this.removeOldRequest();
-        func(...args);
+        this.func(...args);
         this.addToLastRequests(now);
       }
     } else {

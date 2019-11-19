@@ -87,10 +87,10 @@ Your challenge is to write the code for a get_next_task method that accepts an e
 //   let time = Date.now();
 //   // let task = null;
 //   let queue = null;
-  
+
 //   console.log('time', time);
 //     console.log('task queue', taskQueue);
-  
+
 //   employee.type.tasks.forEach(task => {
 //     const currentTask = taskQueue[task][0];
 //     console.log('current task', currentTask);

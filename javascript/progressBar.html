@@ -18,6 +18,7 @@
         background: green;
         height: 100%;
         width: 0%;
+        transition: 5s linear width;
       }
     </style>
   </head>
@@ -41,7 +42,7 @@
         }
 
         const fillBarWithCSS = () => {
-          bar.style.transition = `${5}s linear width`;
+          // bar.style.transition = `${5}s linear width`;
           bar.style.width = '100%';
         }
       </script>

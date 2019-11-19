@@ -1,39 +1,66 @@
 
 
-const swap = (arr, i, j) => {
-  [arr[i], arr[j]] = [arr[j], arr[i]];
+
+
+const swap = (input, i, j) => {
+  [input[i], input[j]] = [input[j], input[i]];
 };
 
-const divide = (arr, pivot, left, right) => {
-  let pivotValue = arr[pivot];
-  let partition = left;
+const divide = (input, pivotIndex, low, high) => {
+  const pivot = input[pivotIndex];
+  let partition = low;
 
-  for (let i = left; i < right; i++) {
-    if (arr[i] < pivotValue) {
-      swap(arr, i, partition);
+  for (let i = low; i < high; i++) {
+    if (input[i] < pivot) {
+      swap(input, i, partition);
       partition++;
     }
   }
-  swap(arr, right, partition);
+  swap(input, high, partition);
   return partition;
 }
 
-const quickSort = (arr, left = 0, right) => {
-  let len = arr.length;
-  if (right === undefined) right = len - 1;
-  let pivot;
-  let partition;
+// In place swaps
+const quickSort = (input, low = 0, high) => {
+  let len = input.length;
+  if (high === undefined) high = len - 1;
 
-  if (left < right) {
-    pivot = right;
-    partition = divide(arr, pivot, left, right);
+  if (low < high) {
+    const pivotIndex = high;
+    const nextPartition = divide(input, pivotIndex, low, high);
 
     //sort left and right
-    quickSort(arr, left, partition - 1);
-    quickSort(arr, partition + 1, right);
+    quickSort(input, low, nextPartition - 1);
+    quickSort(input, nextPartition + 1, high);
     
   }
-  return arr;
+  return input;
 };
 
-console.log(quickSort([3, 5, 2, 8, 2, 4, 6,]));
+
+// With some extra space
+const quickSortWithSpace = input => {
+  if (input.length <= 1) return input;
+
+  const pivotIndex = Math.floor(input.length / 2);
+
+  const pivot = input[pivotIndex];
+
+  const before = [];
+  const after = [];
+
+  for (let i = 0; i < input.length; i++) {
+    if (pivotIndex !== i) {
+      input[i] <= pivot ? before.push(input[i]) : after.push(input[i]);
+    }
+  }
+
+  const left = quickSortWithSpace(before);
+  const right = quickSortWithSpace(after);
+
+  return [...left, pivot, ...right];
+
+}
+
+console.log('in place', quickSort([3, 5, 2, 8, 2, 4, 6,]));
+console.log('with space', quickSortWithSpace([3, 5, 2, 8, 2, 4, 6,]));

@@ -20,62 +20,40 @@
  * - It is not necessary to write a way to remove listeners.
  */
 
-var mixEvents = function (obj) {
+var mixEvents = function(obj) {
   //i: an object
   //o: the same object with added functions
-  //c: none
+  //c:  none
   //e: none
+
   // create a events object with a reference to the callback functions
+  var events = {};
+  var context = this;
 
-  const events = {};
-  obj.on = (event, callback) => {
+  obj.on = function(event, callback) {
     events[event] ? events[event].push(callback) : events[event] = [callback];
-  };
+  }
 
-  obj.trigger = (event, ...args) => {
+  obj.trigger = function(event) {
+    var args = Array.from(arguments).slice(1);
     if (!events[event]) {
       return;
     } else {
-      events[event].forEach(fn => fn(args));
+      events[event].forEach(function(fn) {
+        fn.apply(context, args);
+      });
     }
   }
-
   return obj;
 };
 
 var obj = mixEvents({ name: 'Alice', age: 30 });
 
 obj.on('ageChange', function () { // On takes an event name and a callback function
-  console.log('Age changed');
+console.log('Age changed');
 });
 obj.age++;
 obj.trigger('ageChange'); // This should call our callback! Should log 'age changed'.
-obj.on('ageChange', function () { // On takes an event name and a callback function
-  console.log('Age changed second event');
-});
 obj.age++;
 obj.trigger('ageChange'); // This should call our callback! Should log 'age changed'.
 console.log('object in end', obj);
-
-
-
-
-// ES5
-// var events = {};
-// var context = this;
-
-// obj.on = function (event, callback) {
-//   events[event] ? events[event].push(callback) : events[event] = [callback];
-// }
-
-// obj.trigger = function (event) {
-//   var args = Array.from(arguments).slice(1);
-//   if (!events[event]) {
-//     return;
-//   } else {
-//     events[event].forEach(function (fn) {
-//       fn.apply(context, args);
-//     });
-//   }
-// }
-// return obj;

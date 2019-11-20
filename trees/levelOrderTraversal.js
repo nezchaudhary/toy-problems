@@ -20,7 +20,7 @@ return its level order traversal as:
 
 */
 
-const levelOrder = (root, result = [], depth = 0) => {
+const levelOrderDFS = (root, result = [], depth = 0) => {
   // it is an empty tree
   if (root === null) return [];
 
@@ -43,3 +43,21 @@ const levelOrder = (root, result = [], depth = 0) => {
   levelOrder(root.right, result, depth);
   return result;
 };
+
+const levelOrderBFS = root => {
+  if (!root) return [];
+  let depth = 0;
+
+  const result = [];
+  const current = []
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const curr = queue.shift();
+    current.push(curr);
+    if (curr.left) queue.push(curr.left);
+    if (curr.right) queue.push(curr.right);
+    result.push(current.slice());
+    current = [];
+  }
+}

@@ -25,7 +25,6 @@ const minimumPath = (triangle) => {
 
   
   minSums[0][0] = triangle[0][0];
-  console.log('min sums before', minSums);
 
   for (let i = 1; i < height; i++) {
     for (let j = 0; j < triangle[i].length; j++) {
@@ -38,8 +37,6 @@ const minimumPath = (triangle) => {
       }
     }
   }
-
-  console.log('min sums after', minSums);
 
   let result = minSums[height - 1][0];
   for (let k = 1; k < height; k++) {

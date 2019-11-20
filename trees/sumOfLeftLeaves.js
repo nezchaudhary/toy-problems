@@ -23,13 +23,13 @@ var isLeaf = (node) => {
 
 var sumOfLeftLeaves = function(root, sum = 0) {
   if (root !== null) {
-      if (isLeaf(root.left)) {
-          sum += root.left.val;
-      } else {
-          sum += sumOfLeftLeaves(root.left);
-      }
-      
-      sum += sumOfLeftLeaves(root.right);
+    if (isLeaf(root.left)) {
+      sum += root.left.val;
+    } else {
+      sum += sumOfLeftLeaves(root.left);
+    }
+    
+    sum += sumOfLeftLeaves(root.right);
   }
   return sum;
 };

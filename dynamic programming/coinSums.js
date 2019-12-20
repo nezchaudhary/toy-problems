@@ -25,7 +25,7 @@ makeChange(2) === 2
 */
 
 // dynamic programming solution
-const makeChange = function (total) {
+// const makeChange = function (total) {
 //   //i : a total that we ar
 //   const possibilities = [1, 2, 5, 10, 20, 50, 100, 200];
 //   const answers = new Array(possibilities.length + 1);
@@ -57,6 +57,7 @@ const makeChange = function (total) {
 //     }
 //   }
 // };
+// }
 
 // brute force naive solution
 const makeChange = function (total) {
@@ -71,11 +72,49 @@ const makeChange = function (total) {
     }
     while (value >= 0) {
       loop (coin - 1, value);
-        value -= coins[coin];
+      value -= coins[coin];
     }
   }
   loop(coins.length - 1, total);
   return count;
+};
+
+const makeChange2 = (amount, denoms, index) => {
+  if (index >= denoms.length - 1) return 1;
+  const denomAmount = denoms[index];
+  let ways = 0;
+  for (let i = 0; i * denomAmount <= amount; i++) {
+    const amountRemaining = amount - (i * denomAmount);
+    ways += makeChange2(amountRemaining, denoms, index + 1);
+  return ways;
+  }
+}
+
+const makeChange3 = n => {
+  const denoms = [25, 10, 5, 1];
+  const map = new Array(n + 1);
+  
+  for (let i = 0; i < map.length; i++) {
+    map[i] = new Array(denoms.length);
+  }
+
+  const  makeChange3Internal = (amount, denoms, index, map) => {
+    if (map[amount][index] > 0) {//retrieve value
+      return map[amount][index];
+    }
+    if (index >= denoms.length - 1) return 1; // one denom remaining
+    let denomAmount =  denoms[index];
+    let ways = 0;
+    for (let i= 0; i * denomAmount <= amount; i++) {
+      //go to next denom, assuming i coins of denomAmount
+      const amountRemaining = amount - i * denomAmount;
+      ways += makeChange(amountRemaining, denoms, index + 1, map);
+    }
+    map[amount][index] = ways;
+    return ways;
+  }
+
+  return makeChange3Internal(n, denoms, 0, map);
 };
 
 console.log(makeChange(1)); // 1
@@ -84,4 +123,4 @@ console.log(makeChange(3)); // 2
 console.log(makeChange(4)); // 3
 console.log(makeChange(10)); // 11
 console.log(makeChange(200)); // 73682
-
+console.log(makeChange2(200, [1, 2, 5, 10, 20, 50, 100, 200], 0)); // 73682

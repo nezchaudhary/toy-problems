@@ -23,15 +23,15 @@ const numJewelsInStones = (J, S) => {
   if (!J || !S) return 0;
   const hashMap = {};
   for (const jewel of J) {
-      if (!hashMap[jewel]) {
-          hashMap[jewel] = true;
-      }
+    if (!hashMap[jewel]) {
+      hashMap[jewel] = true;
+    }
   }
   
   let count = 0;
   
   for (const stone of S) {
-      if (hashMap[stone]) count++;
+    if (hashMap[stone]) count++;
   }
   return count;
 }

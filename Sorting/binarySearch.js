@@ -10,7 +10,7 @@
  * console.log(index); // null
  */
 
-var binarySearch = function (array, target) {
+const binarySearch = (array, target) => {
   //i: an array
   //o: the index of the value passed in
   //c: use binary search log(n) time

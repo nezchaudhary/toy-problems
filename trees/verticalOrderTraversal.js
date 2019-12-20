@@ -47,6 +47,13 @@ const verticalOrder = (root, width, result = []/*, size = {width:0}*/) => {
   return result;
 };
 
+
+
+const verticalOrderBT = root => {
+  if (root === null) return;
+  
+};
+
 const tree = new BST(18);
 tree.insert(16);
 tree.insert(22);

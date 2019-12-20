@@ -41,7 +41,7 @@ const pathSum = (root, sum, total = 0, count = 0, sumMap = { 0: 1 }) => {
   sumMap[total] ? sumMap[total] += 1 : sumMap[total] = 1;
 
   if (root.left) {
-    count = pathSum(root.left, sum, total, count, sumMap);
+    count = pathSum(root.left, sum, total, count, sumMap);  
   }
 
   if (root.right) {

@@ -28,5 +28,5 @@ const removeDigits = function(nums, k) {
     
     return result.length === 0 ? '0' : result.join('');
 };
-console.log(removeDigits('1432219', 3));
-console.log(removeDigits('10200', 1));
+console.log(removeDigits('1432219', 3)); // 1219
+console.log(removeDigits('10200', 1)); // 200

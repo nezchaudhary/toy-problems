@@ -69,7 +69,7 @@ const findMedianSortedArrays = (nums1, nums2) => {
       } else {
         return Math.max(maxLeftX, maxLeftY);
       }
-    } else if (  > minRightY) { // We are too far on right side, go more left.
+    } else if (maxLeftX > minRightY) { // We are too far on right side, go more left.
       high = partitionX - 1;
     } else {
       low = partitionX + 1; // We are too far left, go on the right side
@@ -77,8 +77,8 @@ const findMedianSortedArrays = (nums1, nums2) => {
   }
 }
 
-console.log('find median Sorted Arrays', findMedianSortedArrays([1, 3], [2]));
-console.log('find median Sorted Arrays', findMedianSortedArrays([1, 3, 8, 9, 15], [7, 11, 18, 19, 21, 25]));
+console.log('find median Sorted Arrays', findMedianSortedArrays([1, 3], [2])); // 2
+console.log('find median Sorted Arrays', findMedianSortedArrays([1, 3, 8, 9, 15], [7, 11, 18, 19, 21, 25])); // 11
 console.log('find median Sorted Arrays', findMedianSortedArrays([4, 6, 8, 10, 11, 18], [3, 7, 9, 15, 18, 21, 25]));
 console.log('find median Sorted Arrays', findMedianSortedArrays([3, 5, 9, 10, 11, 16], [4, 6, 8, 15]));
 console.log('find median Sorted Arrays', findMedianSortedArrays([1, 2, 5, 6, 7, 8, 9], [5, 7, 8, 9, 10]));

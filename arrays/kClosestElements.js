@@ -56,7 +56,7 @@ class MaxHeap {
   size() {
     return this._heap.length;
   }
- }
+}
 
 const distance = (a, b) => {
    return Math.sqrt(((b[0] - a[0]) ** 2) + ((b[1] - a[1]) ** 2));

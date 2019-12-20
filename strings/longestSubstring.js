@@ -42,7 +42,7 @@ var lengthOfLongestSubstring1 = function(s) {
     while(currentIndex < s.length) {
         const char = s[currentIndex];
         if (stringMap[char] === undefined || stringMap[char] < substringStart) {
-            stringMap[char] = currentIndex;
+          stringMap[char] = currentIndex;
         } else {
             const currentLength = currentIndex - substringStart;
             if (currentLength > longestSubstringLength) {
@@ -63,7 +63,8 @@ var lengthOfLongestSubstring1 = function(s) {
 const lengthOfLongestSubstring2 = s => {
   let ans = 0;
   const indices = new Array(26);
-  for (let i = 0, j = 0; j < s.length; j++) {
+  let i = 0;
+  for (let j = 0; j < s.length; j++) {
     const code = s.charCodeAt(j) - 97;
     i = Math.max(indices[code] || 0, i);
     const currLength = j - i + 1; // need to add 1 for length

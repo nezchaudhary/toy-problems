@@ -55,7 +55,7 @@ const bubbleSort = function (array) {
         swapped++;
       }
     }
-    size --;
+    size--;
   }
   return array;
 };

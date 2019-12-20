@@ -70,25 +70,25 @@ var isValidSudoku = function(board) {
   const boxes = {};
   
   for (let i = 0; i < 9; i++) {
-      rows[i] = {};
-      columns[i] = {};
-      boxes[i] = {};
+    rows[i] = {};
+    columns[i] = {};
+    boxes[i] = {};
   }
   
   for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-          const value = board[i][j];
-          const boxIndex = getBoxIndex(i, j);
-          if (value !== '.' ) {
-              rows[i][value] ? rows[i][value]++ : rows[i][value] = 1;
-              columns[j][value] ? columns[j][value]++ : columns[j][value] = 1;
-              boxes[boxIndex][value] ? boxes[boxIndex][value]++ : boxes[boxIndex][value] = 1;
-          }
-          
-          if (rows[i][value] > 1 || columns[j][value] > 1 || boxes[boxIndex][value] > 1) {
-              return false;
-          }
+    for (let j = 0; j < 9; j++) {
+      const value = board[i][j];
+      const boxIndex = getBoxIndex(i, j);
+      if (value !== '.' ) {
+        rows[i][value] ? rows[i][value]++ : rows[i][value] = 1;
+        columns[j][value] ? columns[j][value]++ : columns[j][value] = 1;
+        boxes[boxIndex][value] ? boxes[boxIndex][value]++ : boxes[boxIndex][value] = 1;
       }
+      
+      if (rows[i][value] > 1 || columns[j][value] > 1 || boxes[boxIndex][value] > 1) {
+        return false;
+      }
+    }
   }
   return true;
 };

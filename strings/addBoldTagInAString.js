@@ -27,7 +27,7 @@ const addBoldTag = function(s, dict) {
     let searchFrom = 0;
     let start = s.indexOf(word, searchFrom);
 
-    while (start != -1) {
+    while (start !== -1) {
       for (let i = 0; i < word.length; i++) {
         boldLetters[start + i] = true;
       }

@@ -34,7 +34,7 @@ const calculateMaximumCarrots = (matrix) => {
 
     // row spots to add if even length
     if (rowIsEven) {
-      possibleCenters.push(r);
+      possibleCenters.push([rowCenter - 1, columnCenter]);
     }
     // column spots to add if even length
     if (columnIsEven) {
@@ -43,7 +43,7 @@ const calculateMaximumCarrots = (matrix) => {
         possibleCenters.push([rowCenter, columnCenter]);
       }
     }
-   
+
     if (rowIsEven && columnIsEven) {
       possibleCenters.push([rowCenter - 1, columnCenter - 1]);
     }
@@ -111,7 +111,7 @@ const calculateMaximumCarrots = (matrix) => {
 
 
 let a = [
-  [5, 7, 8, 6, 3],mamat
+  [5, 7, 8, 6, 3],
   [0, 0, 7, 0, 4],
   [4, 6, 3, 4, 9],
   [3, 1, 0, 5, 8],
